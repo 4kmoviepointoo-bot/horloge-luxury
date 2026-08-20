@@ -543,7 +543,7 @@
         .sort-overlay__panel {
             position: relative;
             width: 100%;
-            max-width: 360px;
+            max-width: 300px;
             background-color: var(--deep-charcoal);
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
@@ -563,15 +563,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 72px;
-            padding: 0 24px;
+            height: 60px;
+            padding: 0 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .filter-overlay__title,
         .sort-overlay__title {
             font-family: var(--font-body);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -583,32 +583,32 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 8px;
+            padding: 6px;
             color: var(--ivory);
         }
 
         .filter-overlay__close .material-symbols-outlined,
         .sort-overlay__close .material-symbols-outlined {
-            font-size: 24px;
+            font-size: 22px;
         }
 
         .filter-overlay__body,
         .sort-overlay__body {
             flex: 1;
             overflow-y: auto;
-            padding: 24px;
+            padding: 16px;
         }
 
         .filter-overlay__section {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .filter-overlay__section-title {
             font-family: var(--font-display);
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--ivory);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--surface-variant);
         }
@@ -618,18 +618,18 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .filter-overlay__item,
         .sort-overlay__item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.5;
             color: var(--on-surface-variant);
             transition: color 0.2s ease;
         }
@@ -657,9 +657,10 @@
         }
 
         .filter-overlay__checkbox-mark,
+        .filter-overlay__checkbox-mark,
         .sort-overlay__radio-mark {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 1px solid var(--polished-silver);
             background-color: var(--deep-charcoal);
             display: flex;
@@ -686,8 +687,8 @@
         .filter-overlay__checkbox-mark svg,
         .sort-overlay__radio-mark svg {
             display: none;
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             color: var(--deep-charcoal);
         }
 
@@ -699,9 +700,9 @@
         .filter-overlay__actions {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 32px;
-            padding-top: 24px;
+            gap: 10px;
+            margin-top: 24px;
+            padding-top: 16px;
             border-top: 1px solid var(--surface-variant);
         }
 
@@ -709,14 +710,17 @@
         .filter-overlay__apply {
             display: block;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             font-family: var(--font-body);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             text-align: center;
             border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
             cursor: pointer;
             transition: all 0.3s ease;
         }
