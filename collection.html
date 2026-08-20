@@ -422,97 +422,8 @@
             display: none;
         }
 
-        @media (min-width: 768px) {
-            .sidebar {
-                display: block;
-                grid-column: span 3;
-                padding-right: 24px;
-                border-right: 1px solid var(--surface-variant);
-            }
-        }
-
-        .sidebar__section {
-            margin-bottom: 48px;
-        }
-
-        .sidebar__title {
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 1.4;
-            color: var(--ivory);
-            margin-bottom: 24px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--surface-variant);
-        }
-
-        .sidebar__list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .sidebar__item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--on-surface-variant);
-            transition: color 0.2s ease;
-        }
-
-        .sidebar__item:hover {
-            color: var(--ivory);
-        }
-
-        .sidebar__checkbox {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .sidebar__checkbox input {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .sidebar__checkbox-mark {
-            width: 16px;
-            height: 16px;
-            border: 1px solid var(--polished-silver);
-            background-color: var(--deep-charcoal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar__checkbox input:checked + .sidebar__checkbox-mark {
-            background-color: var(--rich-gold);
-            border-color: var(--rich-gold);
-        }
-
-        .sidebar__checkbox-mark svg {
-            display: none;
-            width: 12px;
-            height: 12px;
-            color: var(--deep-charcoal);
-        }
-
-        .sidebar__checkbox input:checked + .sidebar__checkbox-mark svg {
-            display: block;
-        }
-
         /* ============================================
-           FILTER / SORT OVERLAYS
+           DROPDOWN MENUS (Filter & Sort)
            ============================================ */
         .filter-overlay,
         .sort-overlay {
@@ -1955,28 +1866,230 @@
 
         <!-- Filter Bar (Mobile) -->
         <div class="filter-bar" role="toolbar" aria-label="Filter and sort options">
-            <button class="filter-bar__btn filter-bar__btn--filter" aria-label="Filter products">
-                <span class="material-symbols-outlined">tune</span>
-                Filter
-            </button>
-            <button class="filter-bar__btn" aria-label="Sort products">
-                Sort
-                <span class="material-symbols-outlined">expand_more</span>
-            </button>
+            <div class="dropdown" id="mobileFilterDropdown">
+                <button class="filter-bar__btn filter-bar__btn--filter dropdown__trigger" aria-label="Filter products" aria-haspopup="true" aria-expanded="false">
+                    <span class="material-symbols-outlined">tune</span>
+                    Filter
+                </button>
+                <div class="dropdown__menu" role="menu" aria-label="Filter options">
+                    <div class="dropdown__section">
+                        <h3 class="dropdown__section-title">Collections</h3>
+                        <ul class="dropdown__list" role="listbox" id="mobileFilterCollections">
+                            <li>
+                                <label class="dropdown__item" role="menuitemcheckbox" aria-checked="true">
+                                    <input type="checkbox" value="Masterpiece" checked aria-label="Masterpiece collection">
+                                    <span class="dropdown__check"></span>
+                                    Masterpiece
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                    <input type="checkbox" value="Heritage" aria-label="Heritage collection">
+                                    <span class="dropdown__check"></span>
+                                    Heritage
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                    <input type="checkbox" value="Complications" aria-label="Complications collection">
+                                    <span class="dropdown__check"></span>
+                                    Complications
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__section">
+                        <h3 class="dropdown__section-title">Materials</h3>
+                        <ul class="dropdown__list" role="listbox" id="mobileFilterMaterials">
+                            <li>
+                                <label class="dropdown__item" role="menuitemcheckbox" aria-checked="true">
+                                    <input type="checkbox" value="Rose Gold" checked aria-label="Rose Gold material">
+                                    <span class="dropdown__check"></span>
+                                    Rose Gold
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                    <input type="checkbox" value="Platinum" aria-label="Platinum material">
+                                    <span class="dropdown__check"></span>
+                                    Platinum
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                    <input type="checkbox" value="Stainless Steel" aria-label="Stainless Steel material">
+                                    <span class="dropdown__check"></span>
+                                    Stainless Steel
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__actions">
+                        <button class="dropdown__reset" id="mobileFilterReset">Clear All</button>
+                        <button class="dropdown__apply" id="mobileFilterApply">Apply</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" id="mobileSortDropdown">
+                <button class="filter-bar__btn dropdown__trigger" aria-label="Sort products" aria-haspopup="true" aria-expanded="false">
+                    Sort
+                    <span class="material-symbols-outlined">expand_more</span>
+                </button>
+                <div class="dropdown__menu" role="menu" aria-label="Sort options">
+                    <ul class="dropdown__list" role="listbox" id="mobileSortOptions">
+                        <li>
+                            <label class="dropdown__item" role="menuitemradio" aria-checked="true">
+                                <input type="radio" name="mobileSort" value="featured" checked aria-label="Featured">
+                                <span class="dropdown__radio"></span>
+                                Featured
+                            </label>
+                        </li>
+                        <li>
+                            <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                <input type="radio" name="mobileSort" value="price-asc" aria-label="Price: Low to High">
+                                <span class="dropdown__radio"></span>
+                                Price: Low to High
+                            </label>
+                        </li>
+                        <li>
+                            <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                <input type="radio" name="mobileSort" value="price-desc" aria-label="Price: High to Low">
+                                <span class="dropdown__radio"></span>
+                                Price: High to Low
+                            </label>
+                        </li>
+                        <li>
+                            <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                <input type="radio" name="mobileSort" value="name-asc" aria-label="Name: A to Z">
+                                <span class="dropdown__radio"></span>
+                                Name: A to Z
+                            </label>
+                        </li>
+                        <li>
+                            <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                <input type="radio" name="mobileSort" value="name-desc" aria-label="Name: Z to A">
+                                <span class="dropdown__radio"></span>
+                                Name: Z to A
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- Collection Header (Desktop) -->
         <div class="collection-header" id="collection">
             <h2 class="collection-header__title">Explore Collection</h2>
             <div class="collection-header__actions">
-                <button class="collection-header__action" aria-label="Filter products">
-                    Filter
-                    <span class="material-symbols-outlined">tune</span>
-                </button>
-                <button class="collection-header__action" aria-label="Sort products">
-                    Sort
-                    <span class="material-symbols-outlined">expand_more</span>
-                </button>
+                <div class="dropdown" id="desktopFilterDropdown">
+                    <button class="collection-header__action dropdown__trigger" aria-label="Filter products" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                        <span class="material-symbols-outlined">tune</span>
+                    </button>
+                    <div class="dropdown__menu dropdown__menu--filter" role="menu" aria-label="Filter options">
+                        <div class="dropdown__section">
+                            <h3 class="dropdown__section-title">Collections</h3>
+                            <ul class="dropdown__list" role="listbox" id="desktopFilterCollections">
+                                <li>
+                                    <label class="dropdown__item" role="menuitemcheckbox" aria-checked="true">
+                                        <input type="checkbox" value="Masterpiece" checked aria-label="Masterpiece collection">
+                                        <span class="dropdown__check"></span>
+                                        Masterpiece
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                        <input type="checkbox" value="Heritage" aria-label="Heritage collection">
+                                        <span class="dropdown__check"></span>
+                                        Heritage
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                        <input type="checkbox" value="Complications" aria-label="Complications collection">
+                                        <span class="dropdown__check"></span>
+                                        Complications
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown__section">
+                            <h3 class="dropdown__section-title">Materials</h3>
+                            <ul class="dropdown__list" role="listbox" id="desktopFilterMaterials">
+                                <li>
+                                    <label class="dropdown__item" role="menuitemcheckbox" aria-checked="true">
+                                        <input type="checkbox" value="Rose Gold" checked aria-label="Rose Gold material">
+                                        <span class="dropdown__check"></span>
+                                        Rose Gold
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                        <input type="checkbox" value="Platinum" aria-label="Platinum material">
+                                        <span class="dropdown__check"></span>
+                                        Platinum
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="dropdown__item" role="menuitemcheckbox" aria-checked="false">
+                                        <input type="checkbox" value="Stainless Steel" aria-label="Stainless Steel material">
+                                        <span class="dropdown__check"></span>
+                                        Stainless Steel
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dropdown__actions">
+                            <button class="dropdown__reset" id="desktopFilterReset">Clear All</button>
+                            <button class="dropdown__apply" id="desktopFilterApply">Apply</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown" id="desktopSortDropdown">
+                    <button class="collection-header__action dropdown__trigger" aria-label="Sort products" aria-haspopup="true" aria-expanded="false">
+                        Sort
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div class="dropdown__menu dropdown__menu--sort" role="menu" aria-label="Sort options">
+                        <ul class="dropdown__list" role="listbox" id="desktopSortOptions">
+                            <li>
+                                <label class="dropdown__item" role="menuitemradio" aria-checked="true">
+                                    <input type="radio" name="desktopSort" value="featured" checked aria-label="Featured">
+                                    <span class="dropdown__radio"></span>
+                                    Featured
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                    <input type="radio" name="desktopSort" value="price-asc" aria-label="Price: Low to High">
+                                    <span class="dropdown__radio"></span>
+                                    Price: Low to High
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                    <input type="radio" name="desktopSort" value="price-desc" aria-label="Price: High to Low">
+                                    <span class="dropdown__radio"></span>
+                                    Price: High to Low
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                    <input type="radio" name="desktopSort" value="name-asc" aria-label="Name: A to Z">
+                                    <span class="dropdown__radio"></span>
+                                    Name: A to Z
+                                </label>
+                            </li>
+                            <li>
+                                <label class="dropdown__item" role="menuitemradio" aria-checked="false">
+                                    <input type="radio" name="desktopSort" value="name-desc" aria-label="Name: Z to A">
+                                    <span class="dropdown__radio"></span>
+                                    Name: Z to A
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -2072,177 +2185,6 @@
                         </li>
                     </ul>
                 </div>
-            </aside>
-
-            <!-- Filter Overlay (Mobile & Desktop) -->
-            <div class="filter-overlay" role="dialog" aria-modal="true" aria-labelledby="filterTitle" id="filterOverlay">
-                <div class="filter-overlay__backdrop" id="filterBackdrop"></div>
-                <div class="filter-overlay__panel">
-                    <div class="filter-overlay__header">
-                        <h2 id="filterTitle" class="filter-overlay__title">Filter</h2>
-                        <button class="filter-overlay__close" id="filterOverlayClose" aria-label="Close filter">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </div>
-                    <div class="filter-overlay__body">
-                        <div class="filter-overlay__section">
-                            <h3 class="filter-overlay__section-title">Collections</h3>
-                            <ul class="filter-overlay__list" id="filterCollections">
-                                <li>
-                                    <label class="filter-overlay__item">
-                                        <span class="filter-overlay__checkbox">
-                                            <input type="checkbox" value="Masterpiece" checked aria-label="Masterpiece collection">
-                                            <span class="filter-overlay__checkbox-mark">
-                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        Masterpiece
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="filter-overlay__item">
-                                        <span class="filter-overlay__checkbox">
-                                            <input type="checkbox" value="Heritage" aria-label="Heritage collection">
-                                            <span class="filter-overlay__checkbox-mark">
-                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        Heritage
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="filter-overlay__item">
-                                        <span class="filter-overlay__checkbox">
-                                            <input type="checkbox" value="Complications" aria-label="Complications collection">
-                                            <span class="filter-overlay__checkbox-mark">
-                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        Complications
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="filter-overlay__section">
-                            <h3 class="filter-overlay__section-title">Materials</h3>
-                            <ul class="filter-overlay__list" id="filterMaterials">
-                                <li>
-                                    <label class="filter-overlay__item">
-                                        <span class="filter-overlay__checkbox">
-                                            <input type="checkbox" value="Rose Gold" checked aria-label="Rose Gold material">
-                                            <span class="filter-overlay__checkbox-mark">
-                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        Rose Gold
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="filter-overlay__item">
-                                        <span class="filter-overlay__checkbox">
-                                            <input type="checkbox" value="Platinum" aria-label="Platinum material">
-                                            <span class="filter-overlay__checkbox-mark">
-                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        Platinum
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="filter-overlay__item">
-                                        <span class="filter-overlay__checkbox">
-                                            <input type="checkbox" value="Stainless Steel" aria-label="Stainless Steel material">
-                                            <span class="filter-overlay__checkbox-mark">
-                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        Stainless Steel
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="filter-overlay__actions">
-                            <button class="filter-overlay__reset" id="filterReset">Clear All Filters</button>
-                            <button class="filter-overlay__apply" id="filterApply">Apply Filters</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sort Overlay (Mobile & Desktop) -->
-            <div class="sort-overlay" role="dialog" aria-modal="true" aria-labelledby="sortTitle" id="sortOverlay">
-                <div class="sort-overlay__backdrop" id="sortBackdrop"></div>
-                <div class="sort-overlay__panel">
-                    <div class="sort-overlay__header">
-                        <h2 id="sortTitle" class="sort-overlay__title">Sort By</h2>
-                        <button class="sort-overlay__close" id="sortOverlayClose" aria-label="Close sort">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </div>
-                    <div class="sort-overlay__body">
-                        <ul class="sort-overlay__list" id="sortOptions">
-                            <li>
-                                <label class="sort-overlay__item">
-                                    <span class="sort-overlay__radio">
-                                        <input type="radio" name="sort" value="featured" checked aria-label="Featured">
-                                        <span class="sort-overlay__radio-mark"></span>
-                                    </span>
-                                    Featured
-                                </label>
-                            </li>
-                            <li>
-                                <label class="sort-overlay__item">
-                                    <span class="sort-overlay__radio">
-                                        <input type="radio" name="sort" value="price-asc" aria-label="Price: Low to High">
-                                        <span class="sort-overlay__radio-mark"></span>
-                                    </span>
-                                    Price: Low to High
-                                </label>
-                            </li>
-                            <li>
-                                <label class="sort-overlay__item">
-                                    <span class="sort-overlay__radio">
-                                        <input type="radio" name="sort" value="price-desc" aria-label="Price: High to Low">
-                                        <span class="sort-overlay__radio-mark"></span>
-                                    </span>
-                                    Price: High to Low
-                                </label>
-                            </li>
-                            <li>
-                                <label class="sort-overlay__item">
-                                    <span class="sort-overlay__radio">
-                                        <input type="radio" name="sort" value="name-asc" aria-label="Name: A to Z">
-                                        <span class="sort-overlay__radio-mark"></span>
-                                    </span>
-                                    Name: A to Z
-                                </label>
-                            </li>
-                            <li>
-                                <label class="sort-overlay__item">
-                                    <span class="sort-overlay__radio">
-                                        <input type="radio" name="sort" value="name-desc" aria-label="Name: Z to A">
-                                        <span class="sort-overlay__radio-mark"></span>
-                                    </span>
-                                    Name: Z to A
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <!-- Products -->
             <div class="products">
                 <div class="products__header">
