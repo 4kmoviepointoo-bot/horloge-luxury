@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HORLOGE - Heritage</title>
+    <meta name="description" content="Over a century of Swiss horological excellence. Discover the legacy, traditions, and innovations that define HORLOGE watchmaking.">
+    <link rel="canonical" href="https://horloge.com/heritage.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="HORLOGE - Heritage">
+    <meta property="og:description" content="Over a century of Swiss horological excellence. Discover the legacy, traditions, and innovations that define HORLOGE watchmaking.">
+    <meta property="og:image" content="https://horloge.com/images/hero-watch.jpg">
+    <meta property="og:url" content="https://horloge.com/heritage.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HORLOGE - Heritage">
+    <meta name="twitter:description" content="Over a century of Swiss horological excellence. Discover the legacy, traditions, and innovations that define HORLOGE watchmaking.">
+    <meta name="twitter:image" content="https://horloge.com/images/hero-watch.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared/styles.css">`n    <script src="analytics.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --deep-charcoal: #1A1A1A;
+            --rich-gold: #D4AF37;
+            --ivory: #F9F9F9;
+            --polished-silver: #C0C0C0;
+            --white: #FFFFFF;
+            --primary-container: #1C1B1B;
+            --on-surface-variant: #999999;
+            --surface-variant: #333333;
+            --container-max: 1440px;
+            --margin-desktop: 80px;
+            --margin-mobile: 20px;
+            --gutter: 24px;
+            --section-gap: 120px;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--deep-charcoal);
+            color: var(--ivory);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        ::selection { background-color: var(--rich-gold); color: var(--deep-charcoal); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+        /* NAVIGATION */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 72px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 16px; background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @media (min-width: 768px) { .nav { padding: 0 var(--margin-desktop); } }
+
+        .nav__menu-btn {
+            display: none; position: relative; width: 44px; height: 44px;
+            border-radius: 5px; border: none; background: transparent;
+            cursor: pointer; padding: 0; flex-shrink: 0; overflow: hidden;
+        }
+        @media (max-width: 767px) { .nav__menu-btn { display: flex; align-items: center; justify-content: center; } }
+        .nav__menu-btn .menu-icon { display: flex; align-items: center; justify-content: center; }
+        .nav__menu-btn .menu-icon svg { width: 28px; height: 28px; }
+        .nav__menu-btn .menu-text {
+            position: absolute; font-family: var(--font-body); font-size: 16px;
+            font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--ivory); opacity: 0; transform: translateX(8px);
+            transition: opacity 0.4s ease, transform 0.4s ease; white-space: nowrap; pointer-events: none;
+        }
+        .nav__menu-btn:hover .menu-icon { transform: translateX(-2px); }
+        .nav__menu-btn:hover .menu-text { opacity: 1; transform: translateX(0); }
+
+        .nav__logo {
+            font-family: var(--font-display); font-size: 20px; font-weight: 600;
+            letter-spacing: -0.03em; text-decoration: none; color: var(--rich-gold);
+            position: absolute; left: 50%; transform: translateX(-50%); z-index: 102;
+        }
+        @media (min-width: 768px) { .nav__logo { color: var(--ivory); position: relative; left: auto; transform: none; } }
+
+        .glass-radio-group {
+            --bg: rgba(255, 255, 255, 0.06); --text: #e5e5e5;
+            display: none; position: absolute; left: 50%; top: 50%;
+            transform: translate(-50%, -50%); background: var(--bg);
+            border-radius: 1rem; backdrop-filter: blur(12px);
+            box-shadow: inset 1px 1px 4px rgba(255,255,255,0.2), inset -1px -1px 6px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+            overflow: hidden; width: fit-content; flex: 0 0 0; z-index: 101;
+        }
+        @media (min-width: 768px) { .glass-radio-group { display: flex; } }
+        @media (max-width: 767px) { .glass-radio-group { display: none; position: absolute; pointer-events: none; } }
+        .glass-radio-group input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+        .glass-radio-group label {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            min-width: 100px; font-family: var(--font-body); font-size: 16px;
+            font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;
+            padding: 0.6rem 1.4rem; cursor: pointer; color: var(--text);
+            position: relative; z-index: 2; transition: color 0.3s ease-in-out; text-decoration: none;
+        }
+        .glass-radio-group label:hover { color: #fff; }
+        .glass-radio-group input[type="radio"]:checked + label { color: #fff; }
+        .glass-glider {
+            position: absolute; top: 0; bottom: 0; width: calc(100% / 3);
+            border-radius: 1rem; z-index: 1;
+            transition: transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56), background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+        #nav-collection:checked ~ .glass-glider { transform: translateX(0%); background: linear-gradient(135deg, #c0c0c055, #e0e0e0); box-shadow: 0 0 18px rgba(192,192,192,0.5); }
+        #nav-heritage:checked ~ .glass-glider { transform: translateX(100%); background: linear-gradient(135deg, #ffd70055, #ffcc00); box-shadow: 0 0 18px rgba(255,215,0,0.5); }
+        #nav-craftsmanship:checked ~ .glass-glider { transform: translateX(200%); background: linear-gradient(135deg, #d0e7ff55, #a0d8ff); box-shadow: 0 0 18px rgba(160,216,255,0.5); }
+
+        .nav__actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; position: relative; z-index: 102; }
+        @media (min-width: 768px) { .nav__actions { gap: 16px; margin-left: auto; } }
+        .nav__icon-btn {
+            background: none; border: none; cursor: pointer; padding: 6px;
+            color: var(--ivory); transition: color 0.3s ease;
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .nav__icon-btn:hover { color: var(--rich-gold); }
+        .nav__icon-btn .material-symbols-outlined { font-size: 22px; }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative; min-height: 70vh; display: flex; align-items: flex-end;
+            padding: 120px 0 80px; overflow: hidden;
+        }
+        .hero__bg {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+        }
+        .hero__overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, var(--deep-charcoal) 0%, rgba(26,26,26,0.6) 50%, rgba(26,26,26,0.3) 100%);
+        }
+        .hero__content {
+            position: relative; z-index: 10; width: 100%; max-width: var(--container-max);
+            margin: 0 auto; padding: 0 var(--margin-mobile);
+        }
+        @media (min-width: 768px) { .hero__content { padding: 0 var(--margin-desktop); } }
+        .hero__label {
+            font-size: 16px; font-weight: 600; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--rich-gold); margin-bottom: 16px;
+        }
+        .hero__title {
+            font-family: var(--font-display); font-weight: 700; line-height: 1.05;
+            color: var(--ivory); letter-spacing: -0.02em; margin-bottom: 24px;
+        }
+        @media (max-width: 767px) { .hero__title { font-size: 42px; } }
+        @media (min-width: 768px) { .hero__title { font-size: 72px; } }
+        .hero__desc {
+            font-size: 16px; line-height: 1.7; color: rgba(249,249,249,0.8);
+            max-width: 560px;
+        }
+
+        /* MAIN CONTENT */
+        .main { flex: 1; }
+
+        .section {
+            padding: var(--section-gap) 0;
+        }
+        .section__inner {
+            max-width: var(--container-max); margin: 0 auto;
+            padding: 0 var(--margin-mobile);
+        }
+        @media (min-width: 768px) { .section__inner { padding: 0 var(--margin-desktop); } }
+
+        .section__label {
+            font-size: 16px; font-weight: 600; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--rich-gold); margin-bottom: 16px;
+        }
+        .section__title {
+            font-family: var(--font-display); font-weight: 700; line-height: 1.1;
+            color: var(--ivory); letter-spacing: -0.02em; margin-bottom: 24px;
+        }
+        @media (max-width: 767px) { .section__title { font-size: 32px; } }
+        @media (min-width: 768px) { .section__title { font-size: 48px; } }
+        .section__text {
+            font-size: 16px; line-height: 1.8; color: rgba(249,249,249,0.75);
+            max-width: 640px;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative; padding-left: 40px; margin-top: 64px;
+        }
+        .timeline::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 1px; background: linear-gradient(to bottom, var(--rich-gold), rgba(212,175,55,0.2));
+        }
+        .timeline__item {
+            position: relative; margin-bottom: 64px;
+        }
+        .timeline__item:last-child { margin-bottom: 0; }
+        .timeline__dot {
+            position: absolute; left: -44px; top: 4px; width: 8px; height: 8px;
+            background: var(--rich-gold); border-radius: 50%;
+            box-shadow: 0 0 12px rgba(212,175,55,0.5);
+        }
+        .timeline__year {
+            font-family: var(--font-display); font-size: 36px; font-weight: 700;
+            color: var(--rich-gold); margin-bottom: 12px; letter-spacing: -0.02em;
+        }
+        .timeline__title {
+            font-family: var(--font-display); font-size: 20px; font-weight: 600;
+            color: var(--ivory); margin-bottom: 12px;
+        }
+        .timeline__text {
+            font-size: 16px; line-height: 1.7; color: rgba(249,249,249,0.7);
+        }
+
+        /* LEGACY GRID */
+        .legacy-grid {
+            display: grid; gap: 32px; margin-top: 64px;
+        }
+        @media (min-width: 768px) { .legacy-grid { grid-template-columns: repeat(3, 1fr); } }
+        .legacy-card {
+            background: var(--primary-container); padding: 40px 32px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .legacy-card:hover {
+            border-color: rgba(212,175,55,0.3); transform: translateY(-4px);
+        }
+        .legacy-card__icon {
+            font-size: 32px; color: var(--rich-gold); margin-bottom: 20px;
+        }
+        .legacy-card__title {
+            font-family: var(--font-display); font-size: 18px; font-weight: 600;
+            color: var(--ivory); margin-bottom: 12px;
+        }
+        .legacy-card__text {
+            font-size: 16px; line-height: 1.7; color: rgba(249,249,249,0.65);
+        }
+
+        /* QUOTE */
+        .quote {
+            text-align: center; padding: var(--section-gap) 0;
+            background: linear-gradient(135deg, rgba(212,175,55,0.03) 0%, transparent 100%);
+        }
+        .quote__text {
+            font-family: var(--font-display); font-style: italic; font-size: 28px;
+            line-height: 1.5; color: var(--ivory); max-width: 800px; margin: 0 auto 24px;
+        }
+        @media (min-width: 768px) { .quote__text { font-size: 36px; } }
+        .quote__author {
+            font-size: 16px; font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--rich-gold);
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-container); border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 48px var(--margin-mobile) 32px;
+        }
+        @media (min-width: 768px) { .footer { padding: 64px var(--margin-desktop) 32px; } }
+        .footer__inner { max-width: var(--container-max); margin: 0 auto; }
+        .footer__brand { margin-bottom: 32px; }
+        .footer__logo {
+            font-family: var(--font-display); font-size: 24px; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase; color: var(--ivory);
+        }
+        .footer__links { list-style: none; display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 32px; }
+        .footer__link {
+            font-size: 16px; color: rgba(249,249,249,0.5); text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer__link:hover { color: var(--rich-gold); }
+        .footer__copyright-text {
+            font-size: 16px; font-weight: 600; letter-spacing: 0.1em;
+            color: rgba(249,249,249,0.3); text-transform: uppercase;
+        }
+        @media (min-width: 768px) {
+            .footer__inner { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+            .footer__brand { margin-bottom: 0; }
+            .footer__links { margin-bottom: 0; justify-content: flex-end; }
+            .footer__copyright { grid-column: span 2; text-align: right; }
+        }
+
+        /* FOCUS & MOTION */
+        .nav__link:focus-visible, .nav__logo:focus-visible, .nav__icon-btn:focus-visible,
+        .footer__link:focus-visible {
+            outline: 2px solid var(--rich-gold); outline-offset: 4px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            position: fixed; inset: 0; z-index: 200; background-color: var(--deep-charcoal);
+            display: flex; flex-direction: column; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu.is-open { opacity: 1; visibility: visible; }
+        .mobile-menu__header {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 80px; padding: 0 var(--margin-mobile);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-menu__logo { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.03em; color: var(--ivory); }
+        .mobile-menu__close { background: none; border: none; cursor: pointer; padding: 8px; color: var(--ivory); }
+        .mobile-menu__close .material-symbols-outlined { font-size: 24px; }
+        .mobile-menu__nav { flex: 1; display: flex; flex-direction: column; padding: 32px var(--margin-mobile); }
+        .glass-radio-group--mobile {
+            display: none; flex-direction: column; position: relative; background: rgba(255,255,255,0.06);
+            border-radius: 1rem; backdrop-filter: blur(12px);
+            box-shadow: inset 1px 1px 4px rgba(255,255,255,0.2), inset -1px -1px 6px rgba(0,0,0,0.3);
+            overflow: hidden; width: 100%; max-width: 280px; margin: 0 auto;
+        }
+        @media (max-width: 767px) { .glass-radio-group--mobile { display: flex; } }
+        .glass-radio-group--mobile input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+        .glass-radio-group--mobile label {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-size: 16px; font-weight: 600;
+            letter-spacing: 0.3px; text-transform: uppercase; padding: 1rem 1.4rem;
+            cursor: pointer; color: #e5e5e5; position: relative; z-index: 2;
+            transition: color 0.3s ease-in-out; text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .glass-radio-group--mobile label:last-of-type { border-bottom: none; }
+        .glass-radio-group--mobile label:hover { color: #fff; }
+        .glass-radio-group--mobile input[type="radio"]:checked + label { color: #fff; }
+        .glass-radio-group--mobile .glass-glider {
+            position: absolute; left: 0; right: 0; top: 0; height: calc(100% / 3); width: 100%;
+            border-radius: 1rem; z-index: 1;
+            transition: transform 0.5s cubic-bezier(0.37,1.95,0.66,0.56), background 0.4s ease-in-out;
+        }
+        #nav-collection-mobile:checked ~ .glass-glider { transform: translateY(0%); background: linear-gradient(135deg, #c0c0c055, #e0e0e0); }
+        #nav-heritage-mobile:checked ~ .glass-glider { transform: translateY(100%); background: linear-gradient(135deg, #ffd70055, #ffcc00); }
+        #nav-craftsmanship-mobile:checked ~ .glass-glider { transform: translateY(200%); background: linear-gradient(135deg, #d0e7ff55, #a0d8ff); }
+
+        .mobile-menu__actions { display: flex; justify-content: center; gap: 24px; padding: 24px var(--margin-mobile); border-top: 1px solid rgba(255,255,255,0.1); }
+        .mobile-menu__icon-btn {
+            background: none; border: none; cursor: pointer; padding: 8px; color: var(--ivory);
+            transition: color 0.3s ease; position: relative;
+        }
+        .mobile-menu__icon-btn:hover { color: var(--rich-gold); }
+        .mobile-menu__icon-btn .material-symbols-outlined { font-size: 24px; }
+    </style>
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <button class="nav__menu-btn" aria-label="Toggle menu">
+            <span class="menu-icon">
+                <svg viewBox="0 0 80 80" width="28" height="28">
+                    <rect width="80" height="15" fill="#f0f0f0" rx="10" />
+                    <rect y="30" width="80" height="15" fill="#f0f0f0" rx="10" />
+                    <rect y="60" width="80" height="15" fill="#f0f0f0" rx="10" />
+                </svg>
+            </span>
+            <span class="menu-text">MENU</span>
+        </button>
+        <a href="index.html" class="nav__logo">HORLOGE</a>
+        <div class="glass-radio-group">
+            <input type="radio" name="nav-material" id="nav-collection">
+            <label for="nav-collection">Collection</label>
+            <input type="radio" name="nav-material" id="nav-heritage" checked>
+            <label for="nav-heritage">Heritage</label>
+            <input type="radio" name="nav-material" id="nav-craftsmanship">
+            <label for="nav-craftsmanship">Craftsmanship</label>
+            <div class="glass-glider"></div>
+        </div>
+        <div class="nav__actions">            <button class="nav__icon-btn" aria-label="Shopping bag" aria-live="polite">                <span class="material-symbols-outlined">shopping_bag</span>            </button>            <button class="nav__icon-btn" aria-label="Search">                <span class="material-symbols-outlined">search</span>            </button>            <button class="nav__icon-btn" aria-label="Account">                <span class="material-symbols-outlined">person</span>            </button>        </div>
+    </nav>
+</header>
+
+    <div class="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobileMenuTitle" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+        <div class="mobile-menu__header">
+            <span id="mobileMenuTitle" class="mobile-menu__logo">HORLOGE</span>
+            <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Close menu">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="mobile-menu__nav">
+            <div class="glass-radio-group--mobile">
+                <input type="radio" name="nav-material-mobile" id="nav-collection-mobile">
+                <label for="nav-collection-mobile">Collection</label>
+                <input type="radio" name="nav-material-mobile" id="nav-heritage-mobile" checked>
+                <label for="nav-heritage-mobile">Heritage</label>
+                <input type="radio" name="nav-material-mobile" id="nav-craftsmanship-mobile">
+                <label for="nav-craftsmanship-mobile">Craftsmanship</label>
+                <div class="glass-glider"></div>
+            </div>
+        </nav>
+        <div class="mobile-menu__actions">
+            <button class="mobile-menu__icon-btn" aria-label="Search"><span class="material-symbols-outlined">search</span></button>
+            <button class="mobile-menu__icon-btn" aria-label="Shopping bag"><span class="material-symbols-outlined">shopping_bag</span></button>
+            <button class="mobile-menu__icon-btn" aria-label="Account"><span class="material-symbols-outlined">person</span></button>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" role="dialog" aria-modal="true" aria-labelledby="searchTitle" id="searchOverlay" role="dialog" aria-label="Search">
+        <div class="search-overlay__header">
+            <span id="mobileMenuTitle" class="mobile-menu__logo">HORLOGE</span>
+            <button class="search-overlay__close" id="searchOverlayClose" aria-label="Close search">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="search-overlay__body">
+            <div class="search-overlay__input-wrapper">
+                <input type="text" class="search-overlay__input" id="searchInput" placeholder="Search watches..." autocomplete="off">
+                <p class="search-overlay__hint">Type to search or press Enter</p>
+            </div>
+            <div class="search-overlay__results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" role="dialog" aria-modal="true" aria-labelledby="cartTitle" id="cartOverlay">
+        <div class="cart-overlay__backdrop"></div>
+        <div class="cart-overlay__panel">
+            <div class="cart-overlay__header">
+                <span class="cart-overlay__title">Shopping Bag</span>
+                <button class="cart-overlay__close" id="cartOverlayClose" aria-label="Close cart">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="cart-overlay__body">
+                <div class="cart-overlay__empty">
+                    <span class="material-symbols-outlined cart-overlay__empty-icon">shopping_bag</span>
+                    <p class="cart-overlay__empty-text">Your bag is empty</p>
+                </div>
+            </div>
+            <div class="cart-overlay__footer">
+                <a href="checkouts.html" class="cart-overlay__checkout">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Overlay -->
+    <div class="account-overlay" role="dialog" aria-modal="true" aria-labelledby="accountTitle" id="accountOverlay" role="dialog" aria-label="Account">
+        <div class="account-overlay__header">
+            <span id="mobileMenuTitle" class="mobile-menu__logo">HORLOGE</span>
+            <button class="account-overlay__close" id="accountOverlayClose" aria-label="Close account">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="account-overlay__body">
+            <span class="material-symbols-outlined account-overlay__icon">person</span>
+            <p class="account-overlay__title" style="font-family: var(--font-display); font-size: 28px; font-weight: 500; color: var(--ivory);">Welcome</p>
+            <p class="account-overlay__text">Sign in to access your account, order history, and wishlist.</p>
+            <div class="account-overlay__actions">
+                <a href="signin.html" class="account-overlay__btn account-overlay__btn--primary">Sign In</a>
+                <a href="signup.html" class="account-overlay__btn account-overlay__btn--secondary">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="main" id="main">
+        <section class="hero">
+            <img src="images/hero-watch.jpg" alt="HORLOGE Heritage" class="hero__bg" width="1920" height="1080" loading="eager">
+            <div class="hero__overlay"></div>
+            <div class="hero__content">
+                <p class="hero__label">Since 1887</p>
+                <h1 class="hero__title">A Legacy of<br>Excellence</h1>
+                <p class="hero__desc">For over a century, HORLOGE has defined the art of Swiss watchmaking. Our heritage is not merely a history — it is the foundation upon which every timepiece is crafted.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__inner">
+                <p class="section__label">Our Story</p>
+                <h2 class="section__title">Timeless Tradition</h2>
+                <p class="section__text">Founded in the Jura mountains of Switzerland, HORLOGE began as a small atelier dedicated to the pursuit of horological perfection. Each generation of master watchmakers has inherited not just techniques, but a philosophy: that a watch is not merely an instrument of time, but a companion for life.</p>
+
+                <div class="timeline">
+                    <div class="timeline__item">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__year">1887</div>
+                        <h3 class="timeline__title">The Beginning</h3>
+                        <p class="timeline__text">Master horologist Émile Horloge establishes his atelier in Vallée de Joux, creating pocket watches of extraordinary precision for European nobility.</p>
+                    </div>
+                    <div class="timeline__item">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__year">1923</div>
+                        <h3 class="timeline__title">The First Wristwatch</h3>
+                        <p class="timeline__text">HORLOGE pioneers the transition from pocket to wrist, unveiling the "Tempus" — a revolutionary timepiece that combined accuracy with wearable elegance.</p>
+                    </div>
+                    <div class="timeline__item">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__year">1952</div>
+                        <h3 class="timeline__title">The Perpetual Movement</h3>
+                        <p class="timeline__text">Introduction of the legendary Calibre 52, the world's thinnest perpetual calendar movement, establishing HORLOGE as a leader in mechanical innovation.</p>
+                    </div>
+                    <div class="timeline__item">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__year">1989</div>
+                        <h3 class="timeline__title">The Artisan Collection</h3>
+                        <p class="timeline__text">Launch of the Artisan line, featuring hand-engraved dials and gem-set bezels, merging haute horlogerie with fine jewelry craftsmanship.</p>
+                    </div>
+                    <div class="timeline__item">
+                        <div class="timeline__dot"></div>
+                        <div class="timeline__year">Today</div>
+                        <h3 class="timeline__title">The Living Legacy</h3>
+                        <p class="timeline__text">Five generations of expertise continue to define every HORLOGE timepiece, honoring tradition while embracing the future of watchmaking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote">
+            <div class="section__inner">
+                <blockquote class="quote__text">"A great watch does not merely tell time — it tells the story of its maker."</blockquote>
+                <p class="quote__author">— Émile Horloge, Founder</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__inner">
+                <p class="section__label">Our Values</p>
+                <h2 class="section__title">Pillars of Excellence</h2>
+
+                <div class="legacy-grid">
+                    <div class="legacy-card">
+                        <span class="material-symbols-outlined legacy-card__icon">diamond</span>
+                        <h3 class="legacy-card__title">Uncompromising Quality</h3>
+                        <p class="legacy-card__text">Every component is inspected, tested, and certified. We accept nothing less than perfection in every movement, every finish, every detail.</p>
+                    </div>
+                    <div class="legacy-card">
+                        <span class="material-symbols-outlined legacy-card__icon">history</span>
+                        <h3 class="legacy-card__title">Heritage Craft</h3>
+                        <p class="legacy-card__text">Techniques passed down through five generations ensure that each timepiece carries the soul of traditional Swiss watchmaking.</p>
+                    </div>
+                    <div class="legacy-card">
+                        <span class="material-symbols-outlined legacy-card__icon">eco</span>
+                        <h3 class="legacy-card__title">Sustainable Legacy</h3>
+                        <p class="legacy-card__text">We craft watches meant to last generations, not seasons. Our commitment to sustainability is woven into every aspect of our practice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="text-align: center; padding: 80px 24px;">
+            <a href="collection.html" class="btn btn--primary" onclick="horlogeTrack('cta_click', {cta: 'explore_collection'})">Explore the Collection</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__brand"><span class="footer__logo">HORLOGE</span></div>
+            <ul class="footer__links">
+                    <li><a href="privacy.html" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="footer__link">Terms of Service</a></li>
+                    <li><a href="sustainability.html" class="footer__link">Sustainability</a></li>
+                    <li><a href="contact.html" class="footer__link">Contact</a></li>
+            </ul>
+
+            <div class="footer__social" style="margin-top: 24px; display: flex; gap: 16px;">
+                <a href="https://instagram.com/horloge" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener"><span class="material-symbols-outlined" style="font-size: 20px;">camera_alt</span></a>
+                <a href="https://twitter.com/horloge" class="footer__social-link" aria-label="Twitter" target="_blank" rel="noopener"><span class="material-symbols-outlined" style="font-size: 20px;">share</span></a>
+                <a href="https://linkedin.com/company/horloge" class="footer__social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><span class="material-symbols-outlined" style="font-size: 20px;">business</span></a>
+            </div>
+
+            <div class="footer__contact">
+                <div class="footer__contact-item">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>Rue du Moulin 12, 2350 Le Locle, Switzerland</span>
+                </div>
+                <div class="footer__contact-item">
+                    <span class="material-symbols-outlined">mail</span>
+                    <a href="mailto:contact@horloge.com">contact@horloge.com</a>
+                </div>
+                <div class="footer__contact-item">
+                    <span class="material-symbols-outlined">call</span>
+                    <a href="tel:+41329431200">+41 32 943 12 00</a>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p class="footer__copyright-text">&copy; 2026 HORLOGE MANUFACTURE. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="shared/overlays.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

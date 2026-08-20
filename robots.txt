@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /checkouts.html
+
+Sitemap: https://horloge.com/sitemap.xml

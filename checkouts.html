@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - HORLOGE</title>
+    <meta name="description" content="Complete your HORLOGE purchase. Secure checkout for luxury Swiss watches with worldwide shipping.">
+    <link rel="canonical" href="https://horloge.com/checkouts.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Checkout - HORLOGE">
+    <meta property="og:description" content="Complete your HORLOGE purchase. Secure checkout for luxury Swiss watches with worldwide shipping.">
+    <meta property="og:image" content="https://horloge.com/images/hero-watch.jpg">
+    <meta property="og:url" content="https://horloge.com/checkouts.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Checkout - HORLOGE">
+    <meta name="twitter:description" content="Complete your HORLOGE purchase. Secure checkout for luxury Swiss watches with worldwide shipping.">
+    <meta name="twitter:image" content="https://horloge.com/images/hero-watch.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared/styles.css">`n    <script src="analytics.js" defer></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --deep-charcoal: #1A1A1A;
+            --rich-gold: #D4AF37;
+            --ivory: #F9F9F9;
+            --polished-silver: #C0C0C0;
+            --white: #FFFFFF;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --primary-container: #1C1B1B;
+            --on-surface-variant: #999999;
+            --surface-variant: #333333;
+            --container-max: 1440px;
+            --margin-desktop: 80px;
+            --margin-mobile: 20px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--deep-charcoal);
+            color: var(--ivory);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        ::selection { background-color: var(--rich-gold); color: var(--deep-charcoal); }
+
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 72px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 16px; background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @media (min-width: 768px) { .nav { padding: 0 var(--margin-desktop); } }
+
+        .nav__menu-btn {
+            display: none; position: relative; width: 44px; height: 44px;
+            border-radius: 5px; border: none; background: transparent;
+            cursor: pointer; padding: 0; flex-shrink: 0; overflow: hidden;
+        }
+        @media (max-width: 767px) { .nav__menu-btn { display: flex; align-items: center; justify-content: center; } }
+        .nav__menu-btn .menu-icon { display: flex; align-items: center; justify-content: center; }
+        .nav__menu-btn .menu-icon svg { width: 28px; height: 28px; }
+        .nav__menu-btn .menu-text {
+            position: absolute; font-family: var(--font-body); font-size: 16px;
+            font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--ivory); opacity: 0; transform: translateX(8px);
+            transition: opacity 0.4s ease, transform 0.4s ease; white-space: nowrap; pointer-events: none;
+        }
+        .nav__menu-btn:hover .menu-icon { transform: translateX(-2px); }
+        .nav__menu-btn:hover .menu-text { opacity: 1; transform: translateX(0); }
+
+        .nav__logo {
+            font-family: var(--font-display); font-size: 20px; font-weight: 600;
+            letter-spacing: -0.03em; text-decoration: none; color: var(--rich-gold);
+            position: absolute; left: 50%; transform: translateX(-50%); z-index: 102;
+        }
+        @media (min-width: 768px) {
+            .nav__logo { color: var(--ivory); position: relative; left: auto; transform: none; }
+        }
+
+        .glass-radio-group {
+            --bg: rgba(255, 255, 255, 0.06); --text: #e5e5e5;
+            display: none; position: absolute; left: 50%; top: 50%;
+            transform: translate(-50%, -50%); background: var(--bg);
+            border-radius: 1rem; backdrop-filter: blur(12px);
+            box-shadow: inset 1px 1px 4px rgba(255,255,255,0.2), inset -1px -1px 6px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+            overflow: hidden; width: fit-content; flex: 0 0 0; z-index: 101;
+        }
+        @media (min-width: 768px) { .glass-radio-group { display: flex; } }
+        @media (max-width: 767px) { .glass-radio-group { display: none; position: absolute; pointer-events: none; } }
+        .glass-radio-group input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+        .glass-radio-group label {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            min-width: 100px; font-family: var(--font-body); font-size: 16px;
+            font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase;
+            padding: 0.6rem 1.4rem; cursor: pointer; color: var(--text);
+            position: relative; z-index: 2; transition: color 0.3s ease-in-out; text-decoration: none;
+        }
+        .glass-radio-group label:hover { color: #fff; }
+        .glass-radio-group input[type="radio"]:checked + label { color: #fff; }
+        .glass-glider {
+            position: absolute; top: 0; bottom: 0; width: calc(100% / 3);
+            border-radius: 1rem; z-index: 1;
+            transition: transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56), background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+        #nav-collection:checked ~ .glass-glider { transform: translateX(0%); background: linear-gradient(135deg, #c0c0c055, #e0e0e0); box-shadow: 0 0 18px rgba(192,192,192,0.5); }
+        #nav-heritage:checked ~ .glass-glider { transform: translateX(100%); background: linear-gradient(135deg, #ffd70055, #ffcc00); box-shadow: 0 0 18px rgba(255,215,0,0.5); }
+        #nav-craftsmanship:checked ~ .glass-glider { transform: translateX(200%); background: linear-gradient(135deg, #d0e7ff55, #a0d8ff); box-shadow: 0 0 18px rgba(160,216,255,0.5); }
+
+        .nav__actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; position: relative; z-index: 102; }
+        @media (min-width: 768px) { .nav__actions { gap: 16px; margin-left: auto; } }
+        .nav__icon-btn {
+            background: none; border: none; cursor: pointer; padding: 6px;
+            color: var(--ivory); transition: color 0.3s ease;
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .nav__icon-btn:hover { color: var(--rich-gold); }
+        .nav__icon-btn .material-symbols-outlined { font-size: 22px; }
+
+        .main { padding-top: 72px; min-height: 100vh; }
+
+        .checkout { max-width: 1200px; margin: 0 auto; padding: 48px var(--margin-mobile); }
+        @media (min-width: 768px) { .checkout { padding: 80px var(--margin-desktop); } }
+
+        .checkout__title {
+            font-family: var(--font-display); font-size: 28px; font-weight: 600;
+            color: var(--ivory); margin-bottom: 48px;
+        }
+        @media (min-width: 768px) { .checkout__title { font-size: 36px; } }
+
+        .checkout__grid { display: grid; gap: 48px; }
+        @media (min-width: 768px) { .checkout__grid { grid-template-columns: 1fr 400px; gap: 80px; } }
+
+        .checkout__form-section { margin-bottom: 40px; }
+        .checkout__section-title {
+            font-family: var(--font-body); font-size: 16px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--rich-gold);
+            margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .checkout__field { margin-bottom: 20px; }
+        .checkout__label {
+            display: block; font-family: var(--font-body); font-size: 16px;
+            font-weight: 600; letter-spacing: 0.05em; color: rgba(249,249,249,0.8); margin-bottom: 8px;
+        }
+        .checkout__input {
+            width: 100%; padding: 14px 16px; background-color: var(--primary-container);
+            border: 1px solid rgba(255,255,255,0.1); color: var(--ivory);
+            font-family: var(--font-body); font-size: 16px; outline: none; transition: border-color 0.3s ease;
+        }
+        .checkout__input:focus { border-color: var(--rich-gold); }
+        .checkout__input::placeholder { color: rgba(255,255,255,0.3); }
+        .checkout__row { display: grid; gap: 16px; }
+        @media (min-width: 768px) { .checkout__row { grid-template-columns: 1fr 1fr; } }
+        .checkout__select {
+            width: 100%; padding: 14px 16px; background-color: var(--primary-container);
+            border: 1px solid rgba(255,255,255,0.1); color: var(--ivory);
+            font-family: var(--font-body); font-size: 16px; outline: none; cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 16px center;
+        }
+        .checkout__select:focus { border-color: var(--rich-gold); }
+        .checkout__checkbox { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .checkout__checkbox input { width: 18px; height: 18px; accent-color: var(--rich-gold); cursor: pointer; }
+        .checkout__checkbox span { font-size: 16px; color: rgba(249,249,249,0.7); }
+
+        .checkout__summary { background-color: var(--primary-container); padding: 32px; border: 1px solid rgba(255,255,255,0.08); }
+        @media (min-width: 768px) { .checkout__summary { position: sticky; top: 96px; } }
+        .checkout__summary-title {
+            font-family: var(--font-body); font-size: 16px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--ivory);
+            margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .checkout__items { max-height: 300px; overflow-y: auto; }
+        .checkout__item {
+            display: flex; gap: 16px; padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .checkout__item-img { width: 70px; height: 70px; object-fit: cover; border-radius: 4px; background-color: var(--surface-variant); }
+        .checkout__item-info { flex: 1; }
+        .checkout__item-name { font-size: 16px; font-weight: 600; color: var(--ivory); margin-bottom: 4px; }
+        .checkout__item-price { font-size: 16px; font-weight: 600; color: var(--rich-gold); }
+
+        .checkout__empty {
+            text-align: center; padding: 40px 0;
+        }
+        .checkout__empty-icon { font-size: 48px; color: rgba(255,255,255,0.15); margin-bottom: 16px; }
+        .checkout__empty-text { font-size: 16px; color: rgba(255,255,255,0.4); margin-bottom: 24px; }
+        .checkout__empty-link {
+            display: inline-block; padding: 12px 24px; background: var(--rich-gold);
+            color: var(--deep-charcoal); text-decoration: none; font-size: 16px;
+            font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+        .checkout__empty-link:hover { background: var(--white); }
+
+        .checkout__totals { margin-top: 24px; padding-top: 16px; }
+        .checkout__total-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .checkout__total-label { font-size: 16px; color: rgba(249,249,249,0.6); }
+        .checkout__total-value { font-size: 16px; font-weight: 600; color: var(--ivory); }
+        .checkout__total-row--final { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .checkout__total-row--final .checkout__total-label { font-size: 16px; font-weight: 600; color: var(--ivory); }
+        .checkout__total-row--final .checkout__total-value { font-size: 18px; font-weight: 600; color: var(--rich-gold); }
+
+        .checkout__submit {
+            width: 100%; padding: 16px; margin-top: 24px; background-color: var(--rich-gold);
+            color: var(--deep-charcoal); font-family: var(--font-body); font-size: 16px;
+            font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+            border: none; cursor: pointer; transition: background-color 0.3s ease;
+        }
+        .checkout__submit:hover { background-color: var(--white); }
+        .checkout__submit:disabled { opacity: 0.4; cursor: not-allowed; }
+        .checkout__secure {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 16px; font-size: 16px; color: rgba(249,249,249,0.4);
+        }
+        .checkout__secure .material-symbols-outlined { font-size: 16px; }
+
+        .footer {
+            background-color: var(--primary-container); border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 48px var(--margin-mobile) 32px;
+        }
+        @media (min-width: 768px) { .footer { padding: 64px var(--margin-desktop) 32px; } }
+        .footer__inner { max-width: var(--container-max); margin: 0 auto; }
+        .footer__brand { margin-bottom: 32px; }
+        .footer__logo {
+            font-family: var(--font-display); font-size: 24px; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase; color: var(--ivory);
+        }
+        .footer__links { list-style: none; display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 32px; }
+        .footer__link {
+            font-size: 16px; color: rgba(249,249,249,0.5); text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer__link:hover { color: var(--rich-gold); }
+        .footer__copyright-text {
+            font-size: 16px; font-weight: 600; letter-spacing: 0.1em;
+            color: rgba(249,249,249,0.3); text-transform: uppercase;
+        }
+        @media (min-width: 768px) {
+            .footer__inner { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+            .footer__brand { margin-bottom: 0; }
+            .footer__links { margin-bottom: 0; justify-content: flex-end; }
+            .footer__copyright { grid-column: span 2; text-align: right; }
+        }
+
+        .nav__link:focus-visible, .nav__logo:focus-visible, .nav__icon-btn:focus-visible,
+        .checkout__submit:focus-visible, .footer__link:focus-visible {
+            outline: 2px solid var(--rich-gold); outline-offset: 4px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        .mobile-menu {
+            position: fixed; inset: 0; z-index: 200; background-color: var(--deep-charcoal);
+            display: flex; flex-direction: column; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu.is-open { opacity: 1; visibility: visible; }
+        .mobile-menu__header {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 80px; padding: 0 var(--margin-mobile);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-menu__logo { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.03em; color: var(--ivory); }
+        .mobile-menu__close { background: none; border: none; cursor: pointer; padding: 8px; color: var(--ivory); }
+        .mobile-menu__close .material-symbols-outlined { font-size: 24px; }
+        .mobile-menu__nav { flex: 1; display: flex; flex-direction: column; padding: 32px var(--margin-mobile); }
+        .glass-radio-group--mobile {
+            display: none; flex-direction: column; position: relative; background: rgba(255,255,255,0.06);
+            border-radius: 1rem; backdrop-filter: blur(12px);
+            box-shadow: inset 1px 1px 4px rgba(255,255,255,0.2), inset -1px -1px 6px rgba(0,0,0,0.3);
+            overflow: hidden; width: 100%; max-width: 280px; margin: 0 auto;
+        }
+        @media (max-width: 767px) { .glass-radio-group--mobile { display: flex; } }
+        .glass-radio-group--mobile input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+        .glass-radio-group--mobile label {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-size: 16px; font-weight: 600;
+            letter-spacing: 0.3px; text-transform: uppercase; padding: 1rem 1.4rem;
+            cursor: pointer; color: #e5e5e5; position: relative; z-index: 2;
+            transition: color 0.3s ease-in-out; text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .glass-radio-group--mobile label:last-of-type { border-bottom: none; }
+        .glass-radio-group--mobile label:hover { color: #fff; }
+        .glass-radio-group--mobile input[type="radio"]:checked + label { color: #fff; }
+        .glass-radio-group--mobile .glass-glider {
+            position: absolute; left: 0; right: 0; top: 0; height: calc(100% / 3); width: 100%;
+            border-radius: 1rem; z-index: 1;
+            transition: transform 0.5s cubic-bezier(0.37,1.95,0.66,0.56), background 0.4s ease-in-out;
+        }
+        #nav-collection-mobile:checked ~ .glass-glider { transform: translateY(0%); background: linear-gradient(135deg, #c0c0c055, #e0e0e0); }
+        #nav-heritage-mobile:checked ~ .glass-glider { transform: translateY(100%); background: linear-gradient(135deg, #ffd70055, #ffcc00); }
+        #nav-craftsmanship-mobile:checked ~ .glass-glider { transform: translateY(200%); background: linear-gradient(135deg, #d0e7ff55, #a0d8ff); }
+
+        .mobile-menu__actions { display: flex; justify-content: center; gap: 24px; padding: 24px var(--margin-mobile); border-top: 1px solid rgba(255,255,255,0.1); }
+        .mobile-menu__icon-btn {
+            background: none; border: none; cursor: pointer; padding: 8px; color: var(--ivory);
+            transition: color 0.3s ease; position: relative;
+        }
+        .mobile-menu__icon-btn:hover { color: var(--rich-gold); }
+        .mobile-menu__icon-btn .material-symbols-outlined { font-size: 24px; }
+    </style>
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <button class="nav__menu-btn" aria-label="Toggle menu">
+            <span class="menu-icon">
+                <svg viewBox="0 0 80 80" width="28" height="28">
+                    <rect width="80" height="15" fill="#f0f0f0" rx="10" />
+                    <rect y="30" width="80" height="15" fill="#f0f0f0" rx="10" />
+                    <rect y="60" width="80" height="15" fill="#f0f0f0" rx="10" />
+                </svg>
+            </span>
+            <span class="menu-text">MENU</span>
+        </button>
+        <a href="index.html" class="nav__logo">HORLOGE</a>
+        <div class="glass-radio-group">
+            <input type="radio" name="nav-material" id="nav-collection" checked>
+            <label for="nav-collection">Collection</label>
+            <input type="radio" name="nav-material" id="nav-heritage">
+            <label for="nav-heritage">Heritage</label>
+            <input type="radio" name="nav-material" id="nav-craftsmanship">
+            <label for="nav-craftsmanship">Craftsmanship</label>
+            <div class="glass-glider"></div>
+        </div>
+        <div class="nav__actions">            <button class="nav__icon-btn" aria-label="Shopping bag" aria-live="polite">                <span class="material-symbols-outlined">shopping_bag</span>            </button>            <button class="nav__icon-btn" aria-label="Search">                <span class="material-symbols-outlined">search</span>            </button>            <button class="nav__icon-btn" aria-label="Account">                <span class="material-symbols-outlined">person</span>            </button>        </div>
+    </nav>
+</header>
+
+    <div class="mobile-menu" role="dialog" aria-modal="true" aria-labelledby="mobileMenuTitle" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+        <div class="mobile-menu__header">
+            <span id="mobileMenuTitle" class="mobile-menu__logo">HORLOGE</span>
+            <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Close menu">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="mobile-menu__nav">
+            <div class="glass-radio-group--mobile">
+                <input type="radio" name="nav-material-mobile" id="nav-collection-mobile" checked>
+                <label for="nav-collection-mobile">Collection</label>
+                <input type="radio" name="nav-material-mobile" id="nav-heritage-mobile">
+                <label for="nav-heritage-mobile">Heritage</label>
+                <input type="radio" name="nav-material-mobile" id="nav-craftsmanship-mobile">
+                <label for="nav-craftsmanship-mobile">Craftsmanship</label>
+                <div class="glass-glider"></div>
+            </div>
+        </nav>
+        <div class="mobile-menu__actions">
+            <button class="mobile-menu__icon-btn" aria-label="Search"><span class="material-symbols-outlined">search</span></button>
+            <button class="mobile-menu__icon-btn" aria-label="Shopping bag"><span class="material-symbols-outlined">shopping_bag</span></button>
+            <button class="mobile-menu__icon-btn" aria-label="Account"><span class="material-symbols-outlined">person</span></button>
+        </div>
+    </div>
+
+    <main class="main" id="main">
+        <div class="checkout">
+            <h1 class="checkout__title">Checkout</h1>
+
+            <div class="checkout__grid">
+                <div class="checkout__form">
+                    <form id="checkoutForm" action="#" method="POST" novalidate>
+                        <input type="hidden" name="csrf_token" value="client-side-only">
+                        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" style="display:none;">
+                        <div class="checkout__form-section">
+                            <h2 class="checkout__section-title">Contact Information</h2>
+                            <div class="checkout__field">
+                                <label class="checkout__label" for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="checkout__input" placeholder="your@email.com" required autocomplete="email">
+                            </div>
+                            <div class="checkout__field">
+                                <label class="checkout__label" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="checkout__input" placeholder="+1 (555) 000-0000" autocomplete="tel" pattern="[\+]?[0-9\s\-\(\)]{7,20}" maxlength="20">
+                            </div>
+                        </div>
+
+                        <div class="checkout__form-section">
+                            <h2 class="checkout__section-title">Shipping Address</h2>
+                            <div class="checkout__row">
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" class="checkout__input" placeholder="First name" required autocomplete="given-name">
+                                </div>
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" class="checkout__input" placeholder="Last name" required autocomplete="family-name">
+                                </div>
+                            </div>
+                            <div class="checkout__field">
+                                <label class="checkout__label" for="address">Address</label>
+                                <input type="text" id="address" class="checkout__input" placeholder="Street address" required autocomplete="street-address">
+                            </div>
+                            <div class="checkout__field">
+                                <label class="checkout__label" for="address2">Apartment, suite, etc. (optional)</label>
+                                <input type="text" id="address2" class="checkout__input" placeholder="Apt, suite, etc." autocomplete="address-line2">
+                            </div>
+                            <div class="checkout__row">
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="city">City</label>
+                                    <input type="text" id="city" class="checkout__input" placeholder="City" required autocomplete="address-level2">
+                                </div>
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="state">State / Province</label>
+                                    <select id="state" class="checkout__select" required autocomplete="address-level1">
+                                        <option value="">Select state</option>
+                                        <option value="NY">New York</option>
+                                        <option value="CA">California</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="FL">Florida</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="checkout__row">
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="zip">ZIP / Postal Code</label>
+                                    <input type="text" id="zip" class="checkout__input" placeholder="ZIP code" required autocomplete="postal-code" pattern="[0-9A-Za-z\s-]{3,10}" maxlength="10">
+                                </div>
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="country">Country</label>
+                                    <select id="country" class="checkout__select" required>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkout__form-section">
+                            <h2 class="checkout__section-title">Payment</h2>
+                            <div class="checkout__field">
+                                <label class="checkout__label" for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" class="checkout__input" placeholder="1234 5678 9012 3456" required autocomplete="cc-number" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19">
+                            </div>
+                            <div class="checkout__row">
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="expiry">Expiration Date</label>
+                                    <input type="text" id="expiry" class="checkout__input" placeholder="MM / YY" required autocomplete="cc-exp" inputmode="numeric" pattern="(0[1-9]|1[0-2])\s?\/?\s?([0-9]{2})" maxlength="7">
+                                </div>
+                                <div class="checkout__field">
+                                    <label class="checkout__label" for="cvv">Security Code</label>
+                                    <input type="text" id="cvv" class="checkout__input" placeholder="CVV" required autocomplete="cc-csc" inputmode="numeric" pattern="[0-9]{3,4}" maxlength="4">
+                                </div>
+                            </div>
+                            <div class="checkout__field">
+                                <label class="checkout__label" for="nameOnCard">Name on Card</label>
+                                <input type="text" id="nameOnCard" class="checkout__input" placeholder="Full name on card" required autocomplete="cc-name">
+                            </div>
+                        </div>
+
+                        <label class="checkout__checkbox">
+                            <input type="checkbox" checked>
+                            <span>Save this information for next time</span>
+                        </label>
+                    </form>
+                </div>
+
+                <div class="checkout__summary">
+                    <h2 class="checkout__summary-title">Order Summary</h2>
+                    <div class="checkout__items" id="checkoutItems"></div>
+                    <div class="checkout__totals" id="checkoutTotals" style="display:none;">
+                        <div class="checkout__total-row">
+                            <span class="checkout__total-label">Subtotal</span>
+                            <span class="checkout__total-value" id="checkoutSubtotal">$0</span>
+                        </div>
+                        <div class="checkout__total-row">
+                            <span class="checkout__total-label">Shipping</span>
+                            <span class="checkout__total-value">Complimentary</span>
+                        </div>
+                        <div class="checkout__total-row">
+                            <span class="checkout__total-label">Tax</span>
+                            <span class="checkout__total-value">$0</span>
+                        </div>
+                        <div class="checkout__total-row checkout__total-row--final">
+                            <span class="checkout__total-label">Total</span>
+                            <span class="checkout__total-value" id="checkoutTotal">$0</span>
+                        </div>
+                    </div>
+                    <div class="checkout__empty" id="checkoutEmpty">
+                        <span class="material-symbols-outlined checkout__empty-icon">shopping_bag</span>
+                        <p class="checkout__empty-text">No items selected for checkout</p>
+                        <a href="collection.html" class="checkout__empty-link">Browse Collection</a>
+                    </div>
+                    <button type="submit" form="checkoutForm" class="checkout__submit" id="placeOrderBtn" disabled>Place Order</button>
+                    <p class="checkout__secure">
+                        <span class="material-symbols-outlined">lock</span>
+                        Secure SSL Encrypted Checkout
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__brand"><span class="footer__logo">HORLOGE</span></div>
+            <ul class="footer__links">
+                    <li><a href="privacy.html" class="footer__link">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="footer__link">Terms of Service</a></li>
+                    <li><a href="sustainability.html" class="footer__link">Sustainability</a></li>
+                    <li><a href="contact.html" class="footer__link">Contact</a></li>
+            </ul>
+
+            <div class="footer__social" style="margin-top: 24px; display: flex; gap: 16px;">
+                <a href="https://instagram.com/horloge" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener"><span class="material-symbols-outlined" style="font-size: 20px;">camera_alt</span></a>
+                <a href="https://twitter.com/horloge" class="footer__social-link" aria-label="Twitter" target="_blank" rel="noopener"><span class="material-symbols-outlined" style="font-size: 20px;">share</span></a>
+                <a href="https://linkedin.com/company/horloge" class="footer__social-link" aria-label="LinkedIn" target="_blank" rel="noopener"><span class="material-symbols-outlined" style="font-size: 20px;">business</span></a>
+            </div>
+
+            <div class="footer__contact">
+                <div class="footer__contact-item">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>Rue du Moulin 12, 2350 Le Locle, Switzerland</span>
+                </div>
+                <div class="footer__contact-item">
+                    <span class="material-symbols-outlined">mail</span>
+                    <a href="mailto:contact@horloge.com">contact@horloge.com</a>
+                </div>
+                <div class="footer__contact-item">
+                    <span class="material-symbols-outlined">call</span>
+                    <a href="tel:+41329431200">+41 32 943 12 00</a>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p class="footer__copyright-text">&copy; 2026 HORLOGE MANUFACTURE. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load cart from localStorage
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem('horloge_cart')) || []; }
+            catch { return []; }
+        }
+
+        function renderCheckout() {
+            const cart = getCart();
+            const selected = cart.filter(item => item.selected);
+            const container = document.getElementById('checkoutItems');
+            const totals = document.getElementById('checkoutTotals');
+            const empty = document.getElementById('checkoutEmpty');
+            const submitBtn = document.getElementById('placeOrderBtn');
+
+            if (selected.length === 0) {
+                container.innerHTML = '';
+                totals.style.display = 'none';
+                empty.style.display = 'block';
+                submitBtn.disabled = true;
+                return;
+            }
+
+            empty.style.display = 'none';
+            totals.style.display = 'block';
+            submitBtn.disabled = false;
+
+            let html = '';
+            let subtotal = 0;
+            selected.forEach(item => {
+                const num = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                if (!isNaN(num)) subtotal += num;
+                html += '<div class="checkout__item">' +
+                    '<img class="checkout__item-img" src="' + item.image + '" alt="' + item.name + '" loading="lazy">' +
+                    '<div class="checkout__item-info">' +
+                        '<p class="checkout__item-name">' + item.name + '</p>' +
+                        '<p class="checkout__item-price">' + item.price + '</p>' +
+                    '</div></div>';
+            });
+            container.innerHTML = html;
+
+            document.getElementById('checkoutSubtotal').textContent = '$' + subtotal.toLocaleString('en-US');
+            document.getElementById('checkoutTotal').textContent = '$' + subtotal.toLocaleString('en-US');
+        }
+
+        renderCheckout();
+
+        // Place Order
+        document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const honeypot = document.getElementById('checkoutForm').querySelector('input[name="website"]');
+            if (honeypot && honeypot.value) {
+                return;
+            }
+            if (!document.getElementById('checkoutForm').checkValidity()) {
+                document.getElementById('checkoutForm').reportValidity();
+                return;
+            }
+            localStorage.removeItem('horloge_cart');
+            alert('Thank you for your order! Your timepiece will be shipped shortly.');
+            window.location.href = 'collection.html';
+        });
+
+    </script>
+    <script src="shared/overlays.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

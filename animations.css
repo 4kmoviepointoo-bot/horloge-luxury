@@ -1,0 +1,1052 @@
+/* ============================================
+   HORLOGE — Premium Animation System
+   ============================================
+   Color tokens (must already exist in :root):
+     --deep-charcoal, --rich-gold, --ivory, --polished-silver
+   ============================================ */
+
+/* -----------------------------------------------
+   1. MOBILE MENU — Slide-in with staggered links
+   ----------------------------------------------- */
+.mobile-menu {
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu__header {
+    opacity: 0;
+    transform: translateY(-16px);
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+.mobile-menu.is-open .mobile-menu__header {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-menu__link {
+    opacity: 0;
+    transform: translateX(-20px) translateY(8px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s ease !important;
+}
+.mobile-menu.is-open .mobile-menu__link {
+    opacity: 1 !important;
+    transform: translateX(0) translateY(0) !important;
+}
+.mobile-menu.is-open .mobile-menu__link:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.is-open .mobile-menu__link:nth-child(2) { transition-delay: 0.16s; }
+.mobile-menu.is-open .mobile-menu__link:nth-child(3) { transition-delay: 0.22s; }
+.mobile-menu.is-open .mobile-menu__link:nth-child(4) { transition-delay: 0.28s; }
+.mobile-menu.is-open .mobile-menu__link:nth-child(5) { transition-delay: 0.34s; }
+
+.mobile-menu__actions {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+.mobile-menu.is-open .mobile-menu__actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* -----------------------------------------------
+   2. HEADER SCROLL — Smooth follow & compact
+   ----------------------------------------------- */
+.nav {
+    transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.35s ease,
+                backdrop-filter 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+.nav--scrolled {
+    height: 56px;
+    background-color: rgba(26, 26, 26, 0.92) !important;
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12) !important;
+    box-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
+}
+
+.nav--scrolled .nav__logo {
+    font-size: 18px;
+    transition: font-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav--scrolled .nav__link {
+    font-size: 14px;
+}
+
+/* Mobile: Smooth hide/show on scroll direction */
+@media (max-width: 767px) {
+    .nav--scrolled .glass-radio-group { display: none; }
+}
+
+/* -----------------------------------------------
+   3. BUTTON CLICK — Premium press feedback
+   ----------------------------------------------- */
+.btn,
+.hero__btn,
+.load-more__btn,
+.auth__submit,
+.checkout__submit,
+.account-overlay__btn,
+.cart-overlay__checkout,
+.nav__icon-btn,
+.nav__menu-btn,
+.mobile-menu__icon-btn,
+.mobile-menu__close,
+.search-overlay__close,
+.cart-overlay__close,
+.account-overlay__close,
+.sale-popup__close {
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.25s ease,
+                background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.btn:active,
+.hero__btn:active,
+.load-more__btn:active,
+.auth__submit:active,
+.checkout__submit:active,
+.account-overlay__btn:active,
+.cart-overlay__checkout:active,
+.nav__icon-btn:active,
+.nav__menu-btn:active,
+.mobile-menu__icon-btn:active,
+.mobile-menu__close:active,
+.search-overlay__close:active,
+.cart-overlay__close:active,
+.account-overlay__close:active,
+.sale-popup__close:active {
+    transform: scale(0.93);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* -----------------------------------------------
+   4. BUTTON HOVER/TOUCH — Premium lift & glow
+   ----------------------------------------------- */
+.hero__btn,
+.load-more__btn,
+.auth__submit,
+.checkout__submit {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero__btn::after,
+.load-more__btn::after,
+.auth__submit::after,
+.checkout__submit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.hero__btn:hover::after,
+.load-more__btn:hover::after,
+.auth__submit:hover::after,
+.checkout__submit:hover::after {
+    opacity: 1;
+}
+
+.hero__btn:hover,
+.load-more__btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(212, 175, 55, 0.35);
+}
+
+.auth__submit:hover,
+.checkout__submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.nav__icon-btn:hover,
+.mobile-menu__icon-btn:hover {
+    transform: translateY(-1px);
+    color: var(--rich-gold);
+}
+
+/* Touch-specific feedback for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .hero__btn:active,
+    .load-more__btn:active,
+    .auth__submit:active,
+    .checkout__submit:active {
+        transform: scale(0.96) translateY(0);
+        box-shadow: 0 2px 12px rgba(212, 175, 55, 0.25);
+    }
+
+    .hero__btn:active::after,
+    .load-more__btn:active::after,
+    .auth__submit:active::after,
+    .checkout__submit:active::after {
+        opacity: 1;
+    }
+}
+
+/* -----------------------------------------------
+   5. SALE POPUP — Elegant slide-in notification
+   ----------------------------------------------- */
+.sale-popup {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    max-width: 360px;
+    width: calc(100% - 48px);
+    background: linear-gradient(145deg, #1C1B1B 0%, #242323 100%);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 2px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.08);
+    opacity: 0;
+    transform: translateY(32px) scale(0.95);
+    visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.5s;
+}
+
+.sale-popup.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+.sale-popup.is-closing {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    transition-duration: 0.35s;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.sale-popup__icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--rich-gold);
+    animation: salePopupIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes salePopupIconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.sale-popup__icon .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.sale-popup__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.sale-popup__badge {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--deep-charcoal);
+    background: var(--rich-gold);
+    padding: 3px 8px;
+    margin-bottom: 8px;
+    animation: salePopupBadgeGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes salePopupBadgeGlow {
+    0%, 100% { box-shadow: 0 0 0 rgba(212, 175, 55, 0); }
+    50% { box-shadow: 0 0 12px rgba(212, 175, 55, 0.4); }
+}
+
+.sale-popup__title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ivory);
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.sale-popup__text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(249, 249, 249, 0.5);
+    line-height: 1.5;
+}
+
+.sale-popup__close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: rgba(249, 249, 249, 0.4);
+    transition: color 0.3s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: -4px -4px 0 0;
+}
+
+.sale-popup__close:hover {
+    color: var(--ivory);
+}
+
+.sale-popup__close:active {
+    transform: scale(0.88);
+}
+
+.sale-popup__close .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.sale-popup__timer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--rich-gold);
+    transition: width linear;
+}
+
+/* -----------------------------------------------
+   6. OVERLAY BACKDROP — Shared fade enhancement
+   ----------------------------------------------- */
+.search-overlay,
+.account-overlay {
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-overlay .search-overlay__body,
+.account-overlay .account-overlay__body {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+.search-overlay.is-open .search-overlay__body,
+.account-overlay.is-open .account-overlay__body {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* -----------------------------------------------
+   7. FOOTER LINKS — Subtle underline grow
+   ----------------------------------------------- */
+.footer__link {
+    position: relative;
+    overflow: hidden;
+}
+
+.footer__link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--rich-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer__link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* -----------------------------------------------
+   REDUCED MOTION — Respect user preference
+   ----------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .mobile-menu__header,
+    .mobile-menu__link,
+    .mobile-menu__actions,
+    .search-overlay .search-overlay__body,
+    .account-overlay .account-overlay__body,
+    .sale-popup {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    .nav--scrolled {
+        height: 72px;
+        transition: none;
+    }
+
+    .sale-popup__icon,
+    .sale-popup__badge {
+        animation: none !important;
+    }
+}
+
+/* -----------------------------------------------
+   8. GLASS RADIO BUTTON — Premium navigation selector
+   ----------------------------------------------- */
+
+/* Desktop: Horizontal, centered in navbar */
+.glass-radio-group {
+    --bg: rgba(255, 255, 255, 0.06);
+    --text: #e5e5e5;
+
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+    border-radius: 1rem;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        inset 1px 1px 4px rgba(255, 255, 255, 0.2),
+        inset -1px -1px 6px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: fit-content;
+    flex: 0 0 0;
+    z-index: 101;
+}
+
+@media (min-width: 768px) {
+    .glass-radio-group {
+        display: flex;
+    }
+}
+
+/* Mobile: remove from flow entirely */
+@media (max-width: 767px) {
+    .glass-radio-group {
+        display: none;
+        position: absolute;
+        pointer-events: none;
+    }
+}
+
+.glass-radio-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.glass-radio-group label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    color: var(--text);
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.glass-radio-group label:hover {
+    color: #fff;
+}
+
+.glass-radio-group input[type="radio"]:checked + label {
+    color: #fff;
+}
+
+.glass-glider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(100% / 3);
+    border-radius: 1rem;
+    z-index: 1;
+    transition:
+        transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56),
+        background 0.4s ease-in-out,
+        box-shadow 0.4s ease-in-out;
+}
+
+/* Collection (was Silver) */
+#nav-collection:checked ~ .glass-glider {
+    transform: translateX(0%);
+    background: linear-gradient(135deg, #c0c0c055, #e0e0e0);
+    box-shadow:
+        0 0 18px rgba(192, 192, 192, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.4) inset;
+}
+
+/* Heritage (was Gold) */
+#nav-heritage:checked ~ .glass-glider {
+    transform: translateX(100%);
+    background: linear-gradient(135deg, #ffd70055, #ffcc00);
+    box-shadow:
+        0 0 18px rgba(255, 215, 0, 0.5),
+        0 0 10px rgba(255, 235, 150, 0.4) inset;
+}
+
+/* Craftsmanship (was Platinum) */
+#nav-craftsmanship:checked ~ .glass-glider {
+    transform: translateX(200%);
+    background: linear-gradient(135deg, #d0e7ff55, #a0d8ff);
+    box-shadow:
+        0 0 18px rgba(160, 216, 255, 0.5),
+        0 0 10px rgba(200, 240, 255, 0.4) inset;
+}
+
+/* Mobile: Vertical version inside mobile menu */
+.glass-radio-group--mobile {
+    display: none;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg);
+    border-radius: 1rem;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        inset 1px 1px 4px rgba(255, 255, 255, 0.2),
+        inset -1px -1px 6px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    .glass-radio-group--mobile {
+        display: flex;
+    }
+}
+
+.glass-radio-group--mobile input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.glass-radio-group--mobile label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    color: var(--text);
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease-in-out;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-radio-group--mobile label:last-of-type {
+    border-bottom: none;
+}
+
+.glass-radio-group--mobile label:hover {
+    color: #fff;
+}
+
+.glass-radio-group--mobile input[type="radio"]:checked + label {
+    color: #fff;
+}
+
+.glass-radio-group--mobile .glass-glider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: calc(100% / 3);
+    width: 100%;
+    border-radius: 1rem;
+    z-index: 1;
+    transition:
+        transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56),
+        background 0.4s ease-in-out,
+        box-shadow 0.4s ease-in-out;
+}
+
+/* Mobile Collection */
+#nav-collection-mobile:checked ~ .glass-glider {
+    transform: translateY(0%);
+    background: linear-gradient(135deg, #c0c0c055, #e0e0e0);
+    box-shadow:
+        0 0 18px rgba(192, 192, 192, 0.5),
+        0 0 10px rgba(255, 255, 255, 0.4) inset;
+}
+
+/* Mobile Heritage */
+#nav-heritage-mobile:checked ~ .glass-glider {
+    transform: translateY(100%);
+    background: linear-gradient(135deg, #ffd70055, #ffcc00);
+    box-shadow:
+        0 0 18px rgba(255, 215, 0, 0.5),
+        0 0 10px rgba(255, 235, 150, 0.4) inset;
+}
+
+/* Mobile Craftsmanship */
+#nav-craftsmanship-mobile:checked ~ .glass-glider {
+    transform: translateY(200%);
+    background: linear-gradient(135deg, #d0e7ff55, #a0d8ff);
+    box-shadow:
+        0 0 18px rgba(160, 216, 255, 0.5),
+        0 0 10px rgba(200, 240, 255, 0.4) inset;
+}
+
+/* -----------------------------------------------
+   MOBILE — Adjust popup position on small screens
+   ----------------------------------------------- */
+@media (max-width: 480px) {
+    .sale-popup {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+        max-width: none;
+        padding: 16px 20px;
+        gap: 12px;
+    }
+
+    .sale-popup__title {
+        font-size: 15px;
+    }
+
+    .sale-popup__text {
+        font-size: 14px;
+    }
+}
+
+/* -----------------------------------------------
+   9. MOBILE MENU BUTTON — Animated hamburger
+   ----------------------------------------------- */
+.nav__menu-btn {
+    display: none;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: background 0.3s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav__menu-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.nav__menu-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--rich-gold);
+}
+
+.nav__menu-btn:active {
+    transform: scale(0.92);
+}
+
+@media (max-width: 767px) {
+    .nav__menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* SVG icon container */
+.nav__menu-btn .menu-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav__menu-btn .menu-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Hide the text by default */
+.nav__menu-btn .menu-text {
+    position: absolute;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ivory);
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* On hover: expand icon, show text */
+.nav__menu-btn:hover .menu-icon {
+    transform: translateX(-2px);
+}
+
+.nav__menu-btn:hover .menu-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* When menu is open, morph to X */
+.nav__menu-btn.is-open .menu-icon svg rect {
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav__menu-btn.is-open .menu-icon svg rect:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+    transform-origin: center;
+}
+
+.nav__menu-btn.is-open .menu-icon svg rect:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.nav__menu-btn.is-open .menu-icon svg rect:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
+    transform-origin: center;
+}
+
+/* Desktop: hide completely */
+@media (min-width: 768px) {
+    .nav__menu-btn {
+        display: none !important;
+    }
+}
+
+/* -----------------------------------------------
+   10. CART BADGE — Item count indicator
+   ----------------------------------------------- */
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--rich-gold);
+    color: var(--deep-charcoal);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    pointer-events: none;
+    animation: cartBadgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cartBadgePop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+/* -----------------------------------------------
+   11. CART OVERLAY — Smooth slide-in for mobile
+   ----------------------------------------------- */
+.cart-overlay {
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cart-overlay__body {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 767px) {
+    .cart-overlay__body {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: 85vh;
+        overflow-y: auto;
+        transform: translateY(100%);
+        border-radius: 16px 16px 0 0;
+        background: var(--deep-charcoal);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cart-overlay.is-open .cart-overlay__body {
+        transform: translateY(0);
+    }
+}
+
+/* -----------------------------------------------
+   12. PAGE TRANSITION — Subtle fade on load
+   ----------------------------------------------- */
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main {
+    animation: pageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* -----------------------------------------------
+   13. FOOTER MODAL — Premium policy overlay
+   ----------------------------------------------- */
+.footer-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 24px;
+}
+
+.footer-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.footer-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.footer-modal__container {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    max-height: 80vh;
+    background: linear-gradient(145deg, #1C1B1B 0%, #242323 100%);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.08);
+    overflow: hidden;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+}
+
+.footer-modal.is-open .footer-modal__container {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.footer-modal.is-closing .footer-modal__container {
+    transform: translateY(16px) scale(0.98);
+    opacity: 0;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.footer-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-modal__title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: -0.02em;
+}
+
+.footer-modal__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: rgba(249, 249, 249, 0.5);
+    transition: color 0.3s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.footer-modal__close:hover {
+    color: var(--ivory);
+}
+
+.footer-modal__close:active {
+    transform: scale(0.88);
+}
+
+.footer-modal__close .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.footer-modal__body {
+    padding: 28px 32px 32px;
+    overflow-y: auto;
+    max-height: calc(80vh - 80px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+}
+
+.footer-modal__body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.footer-modal__body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.footer-modal__body::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 3px;
+}
+
+.footer-modal__content h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--rich-gold);
+    margin-bottom: 12px;
+    margin-top: 24px;
+}
+
+.footer-modal__content h3:first-child {
+    margin-top: 0;
+}
+
+.footer-modal__content p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(249, 249, 249, 0.75);
+    margin-bottom: 16px;
+}
+
+.footer-modal__content ul {
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.footer-modal__content ul li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(249, 249, 249, 0.75);
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.footer-modal__content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--rich-gold);
+    border-radius: 50%;
+}
+
+.footer-modal__content a {
+    color: var(--rich-gold);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-modal__content a:hover {
+    color: var(--white);
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    .footer-modal {
+        padding: 16px;
+        align-items: flex-end;
+    }
+
+    .footer-modal__container {
+        max-height: 85vh;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .footer-modal__header {
+        padding: 20px 24px 16px;
+    }
+
+    .footer-modal__title {
+        font-size: 18px;
+    }
+
+    .footer-modal__body {
+        padding: 20px 24px 28px;
+        max-height: calc(85vh - 72px);
+    }
+
+    .footer-modal__content p,
+    .footer-modal__content ul li {
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .main {
+        animation: none;
+    }
+
+    .footer-modal__container {
+        transition: none;
+    }
+}
