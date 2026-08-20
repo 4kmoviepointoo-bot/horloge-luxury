@@ -512,6 +512,259 @@
         }
 
         /* ============================================
+           FILTER / SORT OVERLAYS
+           ============================================ */
+        .filter-overlay,
+        .sort-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .filter-overlay.is-open,
+        .sort-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .filter-overlay__backdrop,
+        .sort-overlay__backdrop {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .filter-overlay__panel,
+        .sort-overlay__panel {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            background-color: var(--deep-charcoal);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-height: 100vh;
+        }
+
+        .filter-overlay.is-open .filter-overlay__panel,
+        .sort-overlay.is-open .sort-overlay__panel {
+            transform: translateX(0);
+        }
+
+        .filter-overlay__header,
+        .sort-overlay__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-overlay__title,
+        .sort-overlay__title {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ivory);
+        }
+
+        .filter-overlay__close,
+        .sort-overlay__close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: var(--ivory);
+        }
+
+        .filter-overlay__close .material-symbols-outlined,
+        .sort-overlay__close .material-symbols-outlined {
+            font-size: 24px;
+        }
+
+        .filter-overlay__body,
+        .sort-overlay__body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .filter-overlay__section {
+            margin-bottom: 32px;
+        }
+
+        .filter-overlay__section-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ivory);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--surface-variant);
+        }
+
+        .filter-overlay__list,
+        .sort-overlay__list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-overlay__item,
+        .sort-overlay__item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--on-surface-variant);
+            transition: color 0.2s ease;
+        }
+
+        .filter-overlay__item:hover,
+        .sort-overlay__item:hover {
+            color: var(--ivory);
+        }
+
+        .filter-overlay__checkbox,
+        .sort-overlay__radio {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .filter-overlay__checkbox input,
+        .sort-overlay__radio input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .filter-overlay__checkbox-mark,
+        .sort-overlay__radio-mark {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--polished-silver);
+            background-color: var(--deep-charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            border-radius: 2px;
+        }
+
+        .sort-overlay__radio-mark {
+            border-radius: 50%;
+        }
+
+        .filter-overlay__checkbox input:checked + .filter-overlay__checkbox-mark {
+            background-color: var(--rich-gold);
+            border-color: var(--rich-gold);
+        }
+
+        .sort-overlay__radio input:checked + .sort-overlay__radio-mark {
+            border-color: var(--rich-gold);
+            box-shadow: inset 0 0 0 4px var(--deep-charcoal);
+        }
+
+        .filter-overlay__checkbox-mark svg,
+        .sort-overlay__radio-mark svg {
+            display: none;
+            width: 14px;
+            height: 14px;
+            color: var(--deep-charcoal);
+        }
+
+        .filter-overlay__checkbox input:checked + .filter-overlay__checkbox-mark svg,
+        .sort-overlay__radio input:checked + .sort-overlay__radio-mark svg {
+            display: block;
+        }
+
+        .filter-overlay__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--surface-variant);
+        }
+
+        .filter-overlay__reset,
+        .filter-overlay__apply {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-overlay__reset {
+            background-color: transparent;
+            color: var(--on-surface-variant);
+            border: 1px solid var(--surface-variant);
+        }
+
+        .filter-overlay__reset:hover {
+            color: var(--ivory);
+            border-color: var(--rich-gold);
+        }
+
+        .filter-overlay__apply {
+            background-color: var(--rich-gold);
+            color: var(--deep-charcoal);
+        }
+
+        .filter-overlay__apply:hover {
+            background-color: var(--white);
+        }
+
+        .sort-overlay__radio-mark::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--rich-gold);
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .sort-overlay__radio input:checked + .sort-overlay__radio-mark::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 767px) {
+            .filter-overlay__panel,
+            .sort-overlay__panel {
+                max-width: 100%;
+            }
+        }
+
+        /* ============================================
            PRODUCT GRID
            ============================================ */
         .products {
@@ -1820,6 +2073,175 @@
                 </div>
             </aside>
 
+            <!-- Filter Overlay (Mobile & Desktop) -->
+            <div class="filter-overlay" role="dialog" aria-modal="true" aria-labelledby="filterTitle" id="filterOverlay">
+                <div class="filter-overlay__backdrop" id="filterBackdrop"></div>
+                <div class="filter-overlay__panel">
+                    <div class="filter-overlay__header">
+                        <h2 id="filterTitle" class="filter-overlay__title">Filter</h2>
+                        <button class="filter-overlay__close" id="filterOverlayClose" aria-label="Close filter">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <div class="filter-overlay__body">
+                        <div class="filter-overlay__section">
+                            <h3 class="filter-overlay__section-title">Collections</h3>
+                            <ul class="filter-overlay__list" id="filterCollections">
+                                <li>
+                                    <label class="filter-overlay__item">
+                                        <span class="filter-overlay__checkbox">
+                                            <input type="checkbox" value="Masterpiece" checked aria-label="Masterpiece collection">
+                                            <span class="filter-overlay__checkbox-mark">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        Masterpiece
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-overlay__item">
+                                        <span class="filter-overlay__checkbox">
+                                            <input type="checkbox" value="Heritage" aria-label="Heritage collection">
+                                            <span class="filter-overlay__checkbox-mark">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        Heritage
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-overlay__item">
+                                        <span class="filter-overlay__checkbox">
+                                            <input type="checkbox" value="Complications" aria-label="Complications collection">
+                                            <span class="filter-overlay__checkbox-mark">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        Complications
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="filter-overlay__section">
+                            <h3 class="filter-overlay__section-title">Materials</h3>
+                            <ul class="filter-overlay__list" id="filterMaterials">
+                                <li>
+                                    <label class="filter-overlay__item">
+                                        <span class="filter-overlay__checkbox">
+                                            <input type="checkbox" value="Rose Gold" checked aria-label="Rose Gold material">
+                                            <span class="filter-overlay__checkbox-mark">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        Rose Gold
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-overlay__item">
+                                        <span class="filter-overlay__checkbox">
+                                            <input type="checkbox" value="Platinum" aria-label="Platinum material">
+                                            <span class="filter-overlay__checkbox-mark">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        Platinum
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-overlay__item">
+                                        <span class="filter-overlay__checkbox">
+                                            <input type="checkbox" value="Stainless Steel" aria-label="Stainless Steel material">
+                                            <span class="filter-overlay__checkbox-mark">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"></path>
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        Stainless Steel
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="filter-overlay__actions">
+                            <button class="filter-overlay__reset" id="filterReset">Clear All Filters</button>
+                            <button class="filter-overlay__apply" id="filterApply">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Overlay (Mobile & Desktop) -->
+            <div class="sort-overlay" role="dialog" aria-modal="true" aria-labelledby="sortTitle" id="sortOverlay">
+                <div class="sort-overlay__backdrop" id="sortBackdrop"></div>
+                <div class="sort-overlay__panel">
+                    <div class="sort-overlay__header">
+                        <h2 id="sortTitle" class="sort-overlay__title">Sort By</h2>
+                        <button class="sort-overlay__close" id="sortOverlayClose" aria-label="Close sort">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <div class="sort-overlay__body">
+                        <ul class="sort-overlay__list" id="sortOptions">
+                            <li>
+                                <label class="sort-overlay__item">
+                                    <span class="sort-overlay__radio">
+                                        <input type="radio" name="sort" value="featured" checked aria-label="Featured">
+                                        <span class="sort-overlay__radio-mark"></span>
+                                    </span>
+                                    Featured
+                                </label>
+                            </li>
+                            <li>
+                                <label class="sort-overlay__item">
+                                    <span class="sort-overlay__radio">
+                                        <input type="radio" name="sort" value="price-asc" aria-label="Price: Low to High">
+                                        <span class="sort-overlay__radio-mark"></span>
+                                    </span>
+                                    Price: Low to High
+                                </label>
+                            </li>
+                            <li>
+                                <label class="sort-overlay__item">
+                                    <span class="sort-overlay__radio">
+                                        <input type="radio" name="sort" value="price-desc" aria-label="Price: High to Low">
+                                        <span class="sort-overlay__radio-mark"></span>
+                                    </span>
+                                    Price: High to Low
+                                </label>
+                            </li>
+                            <li>
+                                <label class="sort-overlay__item">
+                                    <span class="sort-overlay__radio">
+                                        <input type="radio" name="sort" value="name-asc" aria-label="Name: A to Z">
+                                        <span class="sort-overlay__radio-mark"></span>
+                                    </span>
+                                    Name: A to Z
+                                </label>
+                            </li>
+                            <li>
+                                <label class="sort-overlay__item">
+                                    <span class="sort-overlay__radio">
+                                        <input type="radio" name="sort" value="name-desc" aria-label="Name: Z to A">
+                                        <span class="sort-overlay__radio-mark"></span>
+                                    </span>
+                                    Name: Z to A
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <!-- Products -->
             <div class="products">
                 <div class="products__header">
@@ -1833,7 +2255,7 @@
                 <!-- Desktop Grid -->
                 <div class="products__grid">
                     <!-- Product 1 -->
-                    <article class="product-card" tabindex="0" aria-label="Chronograph Lunar">
+                    <article class="product-card" tabindex="0" aria-label="Chronograph Lunar" data-collection="Masterpiece" data-material="Stainless Steel" data-price="42500" data-name="Chronograph Lunar">
                         <div class="product-card__image-wrapper">
                             <img
                                 class="product-card__image"
@@ -1854,7 +2276,7 @@
                     </article>
 
                     <!-- Product 2 -->
-                    <article class="product-card" tabindex="0" aria-label="Classique 1920">
+                    <article class="product-card" tabindex="0" aria-label="Classique 1920" data-collection="Heritage" data-material="Rose Gold" data-price="28000" data-name="Classique 1920">
                         <div class="product-card__image-wrapper">
                             <img
                                 class="product-card__image"
@@ -1875,7 +2297,7 @@
                     </article>
 
                     <!-- Product 3 -->
-                    <article class="product-card" tabindex="0" aria-label="Tourbillon Squelette">
+                    <article class="product-card" tabindex="0" aria-label="Tourbillon Squelette" data-collection="Complications" data-material="Platinum" data-price="115000" data-name="Tourbillon Squelette">
                         <div class="product-card__image-wrapper">
                             <img
                                 class="product-card__image"
@@ -1896,7 +2318,7 @@
                     </article>
 
                     <!-- Product 4 -->
-                    <article class="product-card" tabindex="0" aria-label="Aero Titanium">
+                    <article class="product-card" tabindex="0" aria-label="Aero Titanium" data-collection="Masterpiece" data-material="Stainless Steel" data-price="35200" data-name="Aero Titanium">
                         <div class="product-card__image-wrapper">
                             <img
                                 class="product-card__image"
@@ -1917,7 +2339,7 @@
                     </article>
 
                     <!-- Product 5 -->
-                    <article class="product-card" tabindex="0" aria-label="Tradition Automatique">
+                    <article class="product-card" tabindex="0" aria-label="Tradition Automatique" data-collection="Heritage" data-material="Rose Gold" data-price="22500" data-name="Tradition Automatique">
                         <div class="product-card__image-wrapper">
                             <img
                                 class="product-card__image"
@@ -1938,7 +2360,7 @@
                     </article>
 
                     <!-- Product 6 -->
-                    <article class="product-card" tabindex="0" aria-label="Quantième Perpétuel">
+                    <article class="product-card" tabindex="0" aria-label="Quantième Perpétuel" data-collection="Complications" data-material="Platinum" data-price="85000" data-name="Quantième Perpétuel">
                         <div class="product-card__image-wrapper">
                             <img
                                 class="product-card__image"
@@ -1961,7 +2383,7 @@
 
                 <!-- Mobile List -->
                 <div class="products__list">
-                    <article class="product-item" aria-label="Oceanic Aquaterra">
+                    <article class="product-item" aria-label="Oceanic Aquaterra" data-collection="Masterpiece" data-material="Stainless Steel" data-price="8500" data-name="Oceanic Aquaterra">
                         <div class="product-item__image-wrapper">
                             <img
                                 class="product-item__image"
@@ -1982,7 +2404,7 @@
                         </div>
                     </article>
 
-                    <article class="product-item" aria-label="Slimline Elegance">
+                    <article class="product-item" aria-label="Slimline Elegance" data-collection="Heritage" data-material="Rose Gold" data-price="12200" data-name="Slimline Elegance">
                         <div class="product-item__image-wrapper">
                             <img
                                 class="product-item__image"
@@ -2003,7 +2425,7 @@
                         </div>
                     </article>
 
-                    <article class="product-item" aria-label="Tourbillon Masterpiece">
+                    <article class="product-item" aria-label="Tourbillon Masterpiece" data-collection="Complications" data-material="Platinum" data-price="45000" data-name="Tourbillon Masterpiece">
                         <div class="product-item__image-wrapper">
                             <img
                                 class="product-item__image"
@@ -2024,7 +2446,7 @@
                         </div>
                     </article>
 
-                    <article class="product-item" aria-label="Stealth Chrono">
+                    <article class="product-item" aria-label="Stealth Chrono" data-collection="Complications" data-material="Stainless Steel" data-price="14800" data-name="Stealth Chrono">
                         <div class="product-item__image-wrapper">
                             <img
                                 class="product-item__image"
@@ -2101,5 +2523,230 @@
 
     <script src="shared/overlays.js"></script>
     <script src="animations.js"></script>
+    <script>
+        // Collection Page Filter & Sort Logic
+        (function() {
+            'use strict';
+
+            // State
+            const state = {
+                collections: new Set(['Masterpiece', 'Rose Gold']),
+                materials: new Set(['Masterpiece', 'Rose Gold']),
+                sort: 'featured'
+            };
+
+            // DOM Elements
+            const productsGrid = document.querySelector('.products__grid');
+            const productsList = document.querySelector('.products__list');
+            const productsCount = document.querySelector('.products__count');
+            const filterOverlay = document.getElementById('filterOverlay');
+            const sortOverlay = document.getElementById('sortOverlay');
+            const filterBackdrop = document.getElementById('filterBackdrop');
+            const sortBackdrop = document.getElementById('sortBackdrop');
+            const filterClose = document.getElementById('filterOverlayClose');
+            const sortClose = document.getElementById('sortOverlayClose');
+            const filterReset = document.getElementById('filterReset');
+            const filterApply = document.getElementById('filterApply');
+            const filterCollections = document.getElementById('filterCollections');
+            const filterMaterials = document.getElementById('filterMaterials');
+            const sortOptions = document.getElementById('sortOptions');
+
+            // Trigger buttons
+            const mobileFilterBtn = document.querySelector('.filter-bar__btn--filter');
+            const mobileSortBtn = document.querySelector('.filter-bar__btn:not(.filter-bar__btn--filter)');
+            const desktopFilterBtn = document.querySelector('.collection-header__action[aria-label="Filter products"]');
+            const desktopSortBtn = document.querySelector('.collection-header__action[aria-label="Sort products"]');
+            const productsSortBtn = document.querySelector('.products__sort');
+
+            // All product cards/items
+            const allProducts = [
+                ...document.querySelectorAll('.product-card'),
+                ...document.querySelectorAll('.product-item')
+            ];
+
+            // Original product order for featured sort
+            const originalOrder = [...allProducts];
+
+            // Initialize checkboxes from state
+            function initCheckboxes() {
+                filterCollections.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    cb.checked = state.collections.has(cb.value);
+                });
+                filterMaterials.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    cb.checked = state.materials.has(cb.value);
+                });
+                sortOptions.querySelectorAll('input[type="radio"]').forEach(rb => {
+                    rb.checked = rb.value === state.sort;
+                });
+            }
+
+            // Open/Close Overlays
+            function openFilter() {
+                filterOverlay.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeFilter() {
+                filterOverlay.classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
+
+            function openSort() {
+                sortOverlay.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSort() {
+                sortOverlay.classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
+
+            // Event Listeners for opening overlays
+            if (mobileFilterBtn) mobileFilterBtn.addEventListener('click', openFilter);
+            if (desktopFilterBtn) desktopFilterBtn.addEventListener('click', openFilter);
+            if (mobileSortBtn) mobileSortBtn.addEventListener('click', openSort);
+            if (desktopSortBtn) desktopSortBtn.addEventListener('click', openSort);
+            if (productsSortBtn) productsSortBtn.addEventListener('click', openSort);
+
+            if (filterClose) filterClose.addEventListener('click', closeFilter);
+            if (sortClose) sortClose.addEventListener('click', closeSort);
+            if (filterBackdrop) filterBackdrop.addEventListener('click', closeFilter);
+            if (sortBackdrop) sortBackdrop.addEventListener('click', closeSort);
+
+            // Filter checkboxes
+            filterCollections.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    if (cb.checked) state.collections.add(cb.value);
+                    else state.collections.delete(cb.value);
+                });
+            });
+
+            filterMaterials.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    if (cb.checked) state.materials.add(cb.value);
+                    else state.materials.delete(cb.value);
+                });
+            });
+
+            // Sort radio buttons
+            sortOptions.querySelectorAll('input[type="radio"]').forEach(rb => {
+                rb.addEventListener('change', () => {
+                    if (rb.checked) state.sort = rb.value;
+                });
+            });
+
+            // Reset filters
+            filterReset.addEventListener('click', () => {
+                state.collections.clear();
+                state.materials.clear();
+                filterCollections.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                filterMaterials.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            });
+
+            // Apply filters
+            filterApply.addEventListener('click', () => {
+                applyFiltersAndSort();
+                closeFilter();
+            });
+
+            // Sort radio - apply immediately
+            sortOptions.querySelectorAll('input[type="radio"]').forEach(rb => {
+                rb.addEventListener('change', () => {
+                    if (rb.checked) {
+                        state.sort = rb.value;
+                        applyFiltersAndSort();
+                        closeSort();
+                    }
+                });
+            });
+
+            // Main filter/sort logic
+            function applyFiltersAndSort() {
+                const filteredProducts = allProducts.filter(product => {
+                    const collection = product.dataset.collection;
+                    const material = product.dataset.material;
+                    const matchesCollection = state.collections.size === 0 || state.collections.has(collection);
+                    const matchesMaterial = state.materials.size === 0 || state.materials.has(material);
+                    return matchesCollection && matchesMaterial;
+                });
+
+                // Sort
+                const sortedProducts = [...filteredProducts].sort((a, b) => {
+                    switch (state.sort) {
+                        case 'price-asc':
+                            return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+                        case 'price-desc':
+                            return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+                        case 'name-asc':
+                            return a.dataset.name.localeCompare(b.dataset.name);
+                        case 'name-desc':
+                            return b.dataset.name.localeCompare(a.dataset.name);
+                        case 'featured':
+                        default:
+                            return originalOrder.indexOf(a) - originalOrder.indexOf(b);
+                    }
+                });
+
+                // Update DOM
+                renderProducts(sortedProducts);
+
+                // Update count
+                if (productsCount) {
+                    productsCount.textContent = `Showing ${sortedProducts.length} Timepiece${sortedProducts.length !== 1 ? 's' : ''}`;
+                }
+            }
+
+            // Render products to both grid and list
+            function renderProducts(products) {
+                // Clear existing
+                productsGrid.innerHTML = '';
+                productsList.innerHTML = '';
+
+                if (products.length === 0) {
+                    productsGrid.innerHTML = '<p style="text-align:center;color:var(--on-surface-variant);grid-column:1/-1;padding:48px;">No timepieces match your filters.</p>';
+                    return;
+                }
+
+                // Append to grid (desktop)
+                products.forEach(product => {
+                    productsGrid.appendChild(product.cloneNode(true));
+                });
+
+                // Append to list (mobile)
+                products.forEach(product => {
+                    const clone = product.cloneNode(true);
+                    // Convert product-card to product-item if needed
+                    if (clone.classList.contains('product-card')) {
+                        clone.classList.remove('product-card');
+                        clone.classList.add('product-item');
+                    }
+                    productsList.appendChild(clone);
+                });
+
+                // Re-add tabindex for keyboard navigation
+                productsGrid.querySelectorAll('.product-card').forEach((card, i) => card.tabIndex = 0);
+                productsList.querySelectorAll('.product-item').forEach((item, i) => item.tabIndex = 0);
+            }
+
+            // Initialize
+            initCheckboxes();
+
+            // Keyboard support for ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeFilter();
+                    closeSort();
+                }
+            });
+
+            // Close on resize if mobile
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    closeFilter();
+                    closeSort();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
