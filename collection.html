@@ -2467,14 +2467,14 @@
     <script src="shared/overlays.js"></script>
     <script src="animations.js"></script>
     <script>
-        // Collection Page Filter & Sort Logic
+// Collection Page Filter & Sort Logic (Dropdowns)
         (function() {
             'use strict';
 
             // State
             const state = {
-                collections: new Set(['Masterpiece', 'Rose Gold']),
-                materials: new Set(['Masterpiece', 'Rose Gold']),
+                collections: new Set(['Masterpiece', 'Heritage', 'Complications']),
+                materials: new Set(['Rose Gold', 'Platinum', 'Stainless Steel']),
                 sort: 'featured'
             };
 
@@ -2482,124 +2482,177 @@
             const productsGrid = document.querySelector('.products__grid');
             const productsList = document.querySelector('.products__list');
             const productsCount = document.querySelector('.products__count');
-            const filterOverlay = document.getElementById('filterOverlay');
-            const sortOverlay = document.getElementById('sortOverlay');
-            const filterBackdrop = document.getElementById('filterBackdrop');
-            const sortBackdrop = document.getElementById('sortBackdrop');
-            const filterClose = document.getElementById('filterOverlayClose');
-            const sortClose = document.getElementById('sortOverlayClose');
-            const filterReset = document.getElementById('filterReset');
-            const filterApply = document.getElementById('filterApply');
-            const filterCollections = document.getElementById('filterCollections');
-            const filterMaterials = document.getElementById('filterMaterials');
-            const sortOptions = document.getElementById('sortOptions');
-
-            // Trigger buttons
-            const mobileFilterBtn = document.querySelector('.filter-bar__btn--filter');
-            const mobileSortBtn = document.querySelector('.filter-bar__btn:not(.filter-bar__btn--filter)');
-            const desktopFilterBtn = document.querySelector('.collection-header__action[aria-label="Filter products"]');
-            const desktopSortBtn = document.querySelector('.collection-header__action[aria-label="Sort products"]');
-            const productsSortBtn = document.querySelector('.products__sort');
-
-            // All product cards/items
             const allProducts = [
                 ...document.querySelectorAll('.product-card'),
                 ...document.querySelectorAll('.product-item')
             ];
-
-            // Original product order for featured sort
             const originalOrder = [...allProducts];
 
-            // Initialize checkboxes from state
-            function initCheckboxes() {
-                filterCollections.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            // Dropdown elements
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const mobileFilterDD = document.getElementById('mobileFilterDropdown');
+            const mobileSortDD = document.getElementById('mobileSortDropdown');
+            const desktopFilterDD = document.getElementById('desktopFilterDropdown');
+            const desktopSortDD = document.getElementById('desktopSortDropdown');
+
+            // Filter checkboxes
+            const mobileFilterCollections = document.getElementById('mobileFilterCollections');
+            const mobileFilterMaterials = document.getElementById('mobileFilterMaterials');
+            const desktopFilterCollections = document.getElementById('desktopFilterCollections');
+            const desktopFilterMaterials = document.getElementById('desktopFilterMaterials');
+
+            // Filter actions
+            const mobileFilterReset = document.getElementById('mobileFilterReset');
+            const mobileFilterApply = document.getElementById('mobileFilterApply');
+            const desktopFilterReset = document.getElementById('desktopFilterReset');
+            const desktopFilterApply = document.getElementById('desktopFilterApply');
+
+            // Sort options
+            const mobileSortOptions = document.getElementById('mobileSortOptions');
+            const desktopSortOptions = document.getElementById('desktopSortOptions');
+
+            // Filter checkboxes
+            const allFilterCollections = [
+                ...mobileFilterCollections.querySelectorAll('input[type="checkbox"]'),
+                ...desktopFilterCollections.querySelectorAll('input[type="checkbox"]')
+            ];
+            const allFilterMaterials = [
+                ...mobileFilterMaterials.querySelectorAll('input[type="checkbox"]'),
+                ...desktopFilterMaterials.querySelectorAll('input[type="checkbox"]')
+            ];
+
+            // Sort radios
+            const mobileSortRadios = mobileSortOptions.querySelectorAll('input[type="radio"]');
+            const desktopSortRadios = desktopSortOptions.querySelectorAll('input[type="radio"]');
+
+            // Filter action buttons
+            const allFilterResets = [mobileFilterReset, desktopFilterReset].filter(Boolean);
+            const allFilterApplies = [mobileFilterApply, desktopFilterApply].filter(Boolean);
+
+            // Sort radios
+            const allSortRadios = [...mobileSortRadios, ...desktopSortRadios];
+
+            // State
+            const state = {
+                collections: new Set(['Masterpiece', 'Heritage', 'Complications']),
+                materials: new Set(['Rose Gold', 'Platinum', 'Stainless Steel']),
+                sort: 'featured'
+            };
+
+            // Dropdown management
+            const openDropdowns = new Set();
+
+            function openDropdown(dropdown) {
+                dropdown.classList.add('is-open');
+                openDropdowns.add(dropdown);
+            }
+
+            function closeDropdown(dropdown) {
+                dropdown.classList.remove('is-open');
+                openDropdowns.delete(dropdown);
+            }
+
+            function closeAllDropdowns() {
+                openDropdowns.forEach(dd => dd.classList.remove('is-open'));
+                openDropdowns.clear();
+            }
+
+            // Sync filter checkboxes across mobile/desktop
+            function syncFilterCheckboxes() {
+                // Sync collections
+                allFilterCollections.forEach(cb => {
                     cb.checked = state.collections.has(cb.value);
                 });
-                filterMaterials.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                // Sync materials
+                allFilterMaterials.forEach(cb => {
                     cb.checked = state.materials.has(cb.value);
                 });
-                sortOptions.querySelectorAll('input[type="radio"]').forEach(rb => {
+            }
+
+            // Sync sort radios
+            function syncSortRadios() {
+                allSortRadios.forEach(rb => {
                     rb.checked = rb.value === state.sort;
                 });
             }
 
-            // Open/Close Overlays
-            function openFilter() {
-                filterOverlay.classList.add('is-open');
-                document.body.style.overflow = 'hidden';
+            // Initialize checkboxes/radios from state
+            function initFromState() {
+                syncFilterCheckboxes();
+                syncSortRadios();
             }
 
-            function closeFilter() {
-                filterOverlay.classList.remove('is-open');
-                document.body.style.overflow = '';
+            // Toggle dropdown
+            function toggleDropdown(dropdown, e) {
+                e.stopPropagation();
+                if (dropdown.classList.contains('is-open')) {
+                    closeDropdown(dropdown);
+                } else {
+                    closeAllDropdowns();
+                    openDropdown(dropdown);
+                }
             }
 
-            function openSort() {
-                sortOverlay.classList.add('is-open');
-                document.body.style.overflow = 'hidden';
-            }
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown')) {
+                    closeAllDropdowns();
+                }
+            });
 
-            function closeSort() {
-                sortOverlay.classList.remove('is-open');
-                document.body.style.overflow = '';
-            }
+            // Dropdown trigger buttons
+            document.querySelectorAll('.dropdown__trigger').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const dropdown = btn.closest('.dropdown');
+                    toggleDropdown(dropdown, e);
+                });
+            });
 
-            // Event Listeners for opening overlays
-            if (mobileFilterBtn) mobileFilterBtn.addEventListener('click', openFilter);
-            if (desktopFilterBtn) desktopFilterBtn.addEventListener('click', openFilter);
-            if (mobileSortBtn) mobileSortBtn.addEventListener('click', openSort);
-            if (desktopSortBtn) desktopSortBtn.addEventListener('click', openSort);
-            if (productsSortBtn) productsSortBtn.addEventListener('click', openSort);
-
-            if (filterClose) filterClose.addEventListener('click', closeFilter);
-            if (sortClose) sortClose.addEventListener('click', closeSort);
-            if (filterBackdrop) filterBackdrop.addEventListener('click', closeFilter);
-            if (sortBackdrop) sortBackdrop.addEventListener('click', closeSort);
-
-            // Filter checkboxes
-            filterCollections.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            // Filter checkboxes - sync across mobile/desktop
+            allFilterCollections.forEach(cb => {
                 cb.addEventListener('change', () => {
                     if (cb.checked) state.collections.add(cb.value);
                     else state.collections.delete(cb.value);
+                    syncFilterCheckboxes();
                 });
             });
 
-            filterMaterials.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            allFilterMaterials.forEach(cb => {
                 cb.addEventListener('change', () => {
                     if (cb.checked) state.materials.add(cb.value);
                     else state.materials.delete(cb.value);
+                    syncFilterCheckboxes();
                 });
             });
 
-            // Sort radio buttons
-            sortOptions.querySelectorAll('input[type="radio"]').forEach(rb => {
+            // Sort radios - apply immediately
+            allSortRadios.forEach(rb => {
                 rb.addEventListener('change', () => {
-                    if (rb.checked) state.sort = rb.value;
+                    if (rb.checked) {
+                        state.sort = rb.value;
+                        syncSortRadios();
+                        applyFiltersAndSort();
+                        closeAllDropdowns();
+                    }
                 });
             });
 
             // Reset filters
-            filterReset.addEventListener('click', () => {
-                state.collections.clear();
-                state.materials.clear();
-                filterCollections.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-                filterMaterials.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            allFilterResets.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.collections.clear();
+                    state.materials.clear();
+                    allFilterCollections.forEach(cb => cb.checked = false);
+                    allFilterMaterials.forEach(cb => cb.checked = false);
+                    syncFilterCheckboxes();
+                });
             });
 
             // Apply filters
-            filterApply.addEventListener('click', () => {
-                applyFiltersAndSort();
-                closeFilter();
-            });
-
-            // Sort radio - apply immediately
-            sortOptions.querySelectorAll('input[type="radio"]').forEach(rb => {
-                rb.addEventListener('change', () => {
-                    if (rb.checked) {
-                        state.sort = rb.value;
-                        applyFiltersAndSort();
-                        closeSort();
-                    }
+            allFilterApplies.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    applyFiltersAndSort();
+                    closeAllDropdowns();
                 });
             });
 
@@ -2641,7 +2694,6 @@
 
             // Render products to both grid and list
             function renderProducts(products) {
-                // Clear existing
                 productsGrid.innerHTML = '';
                 productsList.innerHTML = '';
 
@@ -2650,15 +2702,12 @@
                     return;
                 }
 
-                // Append to grid (desktop)
                 products.forEach(product => {
                     productsGrid.appendChild(product.cloneNode(true));
                 });
 
-                // Append to list (mobile)
                 products.forEach(product => {
                     const clone = product.cloneNode(true);
-                    // Convert product-card to product-item if needed
                     if (clone.classList.contains('product-card')) {
                         clone.classList.remove('product-card');
                         clone.classList.add('product-item');
@@ -2666,28 +2715,23 @@
                     productsList.appendChild(clone);
                 });
 
-                // Re-add tabindex for keyboard navigation
                 productsGrid.querySelectorAll('.product-card').forEach((card, i) => card.tabIndex = 0);
                 productsList.querySelectorAll('.product-item').forEach((item, i) => item.tabIndex = 0);
             }
 
             // Initialize
-            initCheckboxes();
+            initFromState();
 
-            // Keyboard support for ESC key
+            // Close dropdowns on ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    closeFilter();
-                    closeSort();
+                    closeAllDropdowns();
                 }
             });
 
-            // Close on resize if mobile
+            // Close dropdowns on resize
             window.addEventListener('resize', () => {
-                if (window.innerWidth >= 768) {
-                    closeFilter();
-                    closeSort();
-                }
+                closeAllDropdowns();
             });
         })();
     </script>
